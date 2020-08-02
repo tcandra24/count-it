@@ -1,9 +1,17 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import VuexPersist from 'vuex-persist'
+import transaction from '@/store/transaction'
+
+const persist = new VuexPersist({
+  key: 'countIt-data',
+  storage: localStorage
+})
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
+  plugins: [persist.plugin],
   state: {
   },
   mutations: {
@@ -11,5 +19,6 @@ export default new Vuex.Store({
   actions: {
   },
   modules: {
+    transaction
   }
 })
