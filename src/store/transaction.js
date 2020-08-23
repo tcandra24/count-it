@@ -7,6 +7,7 @@ export default {
   mutations: {
     addData: (state, value) => {
       state.transactions.push({
+        id: value.id,
         nama: value.nama,
         tanggal: value.tanggal,
         nominal: value.nominal,
@@ -15,6 +16,7 @@ export default {
     },
     updateData: (state, value) => {
       state.transactions.splice(value.index, 1, {
+        id: value.id,
         nama: value.nama,
         tanggal: value.tanggal,
         nominal: value.nominal,
@@ -22,7 +24,7 @@ export default {
       })
     },
     deleteData: (state, value) => {
-      state.transactions.splice(value.index, 1)
+      state.transactions.splice(value.id, 1)
     },
     editBudget: (state, value) => {
       state.budget = value.budget

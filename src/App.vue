@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Nav class='mb-6'/>
+    <Nav />
     <router-view/>
   </div>
 </template>
