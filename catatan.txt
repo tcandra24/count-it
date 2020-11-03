@@ -1,0 +1,9 @@
+count-it : Kedepannya 
+- tambahan tipe transaksi (Pemasukan | Pengeluaran) check
+- tambahan kategori transaksi
+- grafik pemasukan atau pengeluaran check
+- Top 10 Pengeluaran pada bulan ini check
+- Top 10 Pemasukan pada bulan ini check
+- pencarian data
+- tambah rumus untuk perhitungan
+- paging

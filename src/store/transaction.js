@@ -11,7 +11,8 @@ export default {
         nama: value.nama,
         tanggal: value.tanggal,
         nominal: value.nominal,
-        keterangan: value.keterangan
+        keterangan: value.keterangan,
+        pengeluaran: value.pengeluaran
       })
     },
     updateData: (state, value) => {
@@ -20,7 +21,8 @@ export default {
         nama: value.nama,
         tanggal: value.tanggal,
         nominal: value.nominal,
-        keterangan: value.keterangan
+        keterangan: value.keterangan,
+        pengeluaran: value.pengeluaran
       })
     },
     deleteData: (state, value) => {
@@ -46,10 +48,20 @@ export default {
   },
   getters: {
     allTransaction: state => state.transactions,
-    budget: state => state.budget,
     countPengeluaran: (state) => {
       return state.transactions.reduce((val, element) => {
-        return parseInt(val) + parseInt(element.nominal)
+        if (element.pengeluaran) {
+          val = parseInt(val) + parseInt(element.nominal)
+        }
+        return val
+      }, 0)
+    },
+    countPemasukan: (state) => {
+      return state.transactions.reduce((val, element) => {
+        if (!element.pengeluaran) {
+          val = parseInt(val) + parseInt(element.nominal)
+        }
+        return val
       }, 0)
     },
     countSisa: (state) => {
