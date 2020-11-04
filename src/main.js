@@ -14,6 +14,8 @@ import Vuelidate from 'vuelidate'
 import 'sweetalert2/dist/sweetalert2.min.css'
 import './assets/styles/index.css'
 
+import './plugins/helper'
+
 Vue.use(VueSweetalert2)
 Vue.use(VMoment)
 Vue.use(VModal)

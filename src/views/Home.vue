@@ -15,14 +15,26 @@
       <div class="flex flex-wrap">
         <div class="flex-auto w-full rounded block border border-gray-200 mx-2 my-2 overflow-hidden shadow-lg" >
           <div class="px-6 py-4">
-            <div class="font-bold text-xl mb-1 text-left">
-              Grafik
+            <div class="text-center mb-1 text-left flex">
+              <div class="w-2/5">
+                <button @click="prev" class='text-lg text-gray-600 bg-gray-300 hover:bg-gray-500 hover:text-white text-white px-3 py-1 rounded rounded-full'>
+                  Prev
+                </button>
+              </div>
+              <div class="w-2/5 font-bold text-xl">
+                {{ tahun }}
+              </div>
+              <div class="w-2/5">
+                <button @click="next" class='text-lg text-gray-600 bg-gray-300 hover:bg-gray-500 hover:text-white text-white px-3 py-1 rounded rounded-full'>
+                  Next
+                </button>
+              </div>
             </div>
             <p class="text-gray-600 text-sm text-left">
               Pemasukan dan Pengeluaran
             </p>
             <hr class="my-2">
-            <chart :data="dataset" :options="options" />
+            <chart :chart-data="dataset" :options="options" />
           </div>
         </div>
         <div class="flex-auto max-w-sm rounded block border border-gray-200 mx-2 my-2 overflow-hidden shadow-lg" >
@@ -98,7 +110,8 @@ import chart from '@/components/Chart'
 export default {
   data: () => ({
     dataset: {},
-    options: {}
+    options: {},
+    tahun: 2020
   }),
   components: {
     chart
@@ -111,27 +124,32 @@ export default {
 
       sort.reduce((res, value) => {
         const tgl = this.$moment(value.tanggal)
-        if (!res[tgl.format('MMM')]) {
-          res[tgl.format('MMM')] = {
-            nominal: 0,
-            bln: tgl.format('MMM')
+
+        if (parseInt(tgl.format('YYYY')) === this.tahun) {
+          if (!res[tgl.format('MMM')]) {
+            res[tgl.format('MMM')] = {
+              nominal: 0,
+              bln: tgl.format('MMM')
+            }
+            pengeluaranSum.push(res[tgl.format('MMM')])
           }
-          pengeluaranSum.push(res[tgl.format('MMM')])
+          if (value.pengeluaran === true) res[tgl.format('MMM')].nominal += value.nominal
         }
-        if (value.pengeluaran === true) res[tgl.format('MMM')].nominal += value.nominal
         return res
       }, {})
 
       sort.reduce((res, value) => {
         const tgl = this.$moment(value.tanggal)
-        if (!res[tgl.format('MMM')]) {
-          res[tgl.format('MMM')] = {
-            nominal: 0,
-            bln: tgl.format('MMM')
+        if (parseInt(tgl.format('YYYY')) === this.tahun) {
+          if (!res[tgl.format('MMM')]) {
+            res[tgl.format('MMM')] = {
+              nominal: 0,
+              bln: tgl.format('MMM')
+            }
+            pemasukanSum.push(res[tgl.format('MMM')])
           }
-          pemasukanSum.push(res[tgl.format('MMM')])
+          if (value.pengeluaran === false) res[tgl.format('MMM')].nominal += value.nominal
         }
-        if (value.pengeluaran === false) res[tgl.format('MMM')].nominal += value.nominal
         return res
       }, {})
 
@@ -161,6 +179,14 @@ export default {
       this.options = {
         responsive: true, maintainAspectRatio: false
       }
+    },
+    next () {
+      this.tahun++
+      this.initChart()
+    },
+    prev () {
+      this.tahun--
+      this.initChart()
     }
   },
   computed: {
@@ -169,14 +195,14 @@ export default {
     }),
     pengeluaranTop () {
       const getDataPengeluaran = this.allData.filter((data) => {
-        return data.pengeluaran === true
+        return data.pengeluaran === true && parseInt(this.$moment(data.tanggal).format('YYYY')) === this.tahun
       })
 
       return _.orderBy(getDataPengeluaran, 'nominal', 'desc')
     },
     pemasukanTop () {
       const getDataPemasukan = this.allData.filter((data) => {
-        return data.pengeluaran === false
+        return data.pengeluaran === false && parseInt(this.$moment(data.tanggal).format('YYYY')) === this.tahun
       })
 
       return _.orderBy(getDataPemasukan, 'nominal', 'desc')

@@ -7,3 +7,5 @@ count-it : Kedepannya
 - pencarian data
 - tambah rumus untuk perhitungan
 - paging
+- halaman About
+- footer check

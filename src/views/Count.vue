@@ -7,7 +7,7 @@
         <h1 class="py-2 w-full md:w-1/3 block font-bold text-gray-200">Pengeluaran : {{ jml_pengeluaran | currency }}</h1>
       </div>
     </div>
-    <div class='container mx-auto px-5 '>
+    <div class='container mx-auto px-5'>
       <div class="flex flex-wrap py-5">
         <div class="w-full md:w-1/6">
           <button
