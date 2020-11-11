@@ -7,59 +7,83 @@
         <h1 class="py-2 w-full md:w-1/3 block font-bold text-gray-200">Pengeluaran : {{ jml_pengeluaran | currency }}</h1>
       </div>
     </div>
-    <div class='container mx-auto px-5'>
-      <div class="flex flex-wrap py-5">
-        <div class="w-full md:w-1/6">
-          <button
-            @click='show'
-            class='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded float-left rounded-full h-full'
-          >
-            Tambah Data
-          </button>
-        </div>
-        <div class="w-full md:w-1/6">
-          <div class="relative w-32 float-left">
-            <select v-model="sort" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded-full leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-              <option value="">Filter</option>
-              <option value="nama">Nama</option>
-              <option value="tanggal">Tanggal</option>
-              <option value="nominal">Nominal</option>
-            </select>
-            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-              <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+    <div class="flex flex-wrap">
+      <div class='container px-3 md:w-1/5 h-screen'>
+        <div class="flex-auto max-w-sm rounded block border border-gray-200 mx-1 my-3 overflow-hidden">
+          <div class="px-6 py-4">
+            <div class="mb-1 text-left">
+              <p class="my-2">
+                Filter :
+              </p>
+              <div class="relative w-full">
+                <select v-model="sort" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                  <option value="">Filter</option>
+                  <option value="nama">Nama</option>
+                  <option value="tanggal">Tanggal</option>
+                  <option value="nominal">Nominal</option>
+                </select>
+                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                  <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                </div>
+              </div>
+              <hr class="my-4">
+              <div class="relative w-full">
+                <input
+                  class='appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 mb-1 leading-tight focus:outline-none focus:border-gray-500'
+                  id='grid-nama'
+                  type='text'
+                  placeholder='Cari...'
+                  v-model="cari"
+                />
+              </div>
+              <hr class="my-4">
             </div>
           </div>
         </div>
       </div>
-      <div class="flex flex-wrap">
-        <div class="flex-auto max-w-sm rounded block border border-gray-200 mx-2 my-2 overflow-hidden shadow-lg" v-for='(item, index) in countData' :key='index' >
-          <img class="w-full h-16 object-cover" :src="`https://picsum.photos/1920/1080?random=${index + 1}`" alt="Just Picture">
-          <div class="px-6 py-4">
-            <div class="font-bold text-xl mb-1 text-left">
-              {{ item.nama }}
-            </div>
-            <p class="text-gray-600 text-sm text-left">
-              {{ item.tanggal | moment("DD-MM-YYYY") }}
-            </p>
-            <hr class="my-2">
-            <p class="text-gray-600 text-base text-left">
-              {{ item.keterangan }}
-            </p>
-            <p class="text-base text-left font-bold" :class="[ item.pengeluaran === true ? 'text-red-500' : 'text-green-500' ]">
-              {{ item.nominal | currency }}
-            </p>
+      <div class='container px-5 md:w-4/5'>
+        <div class="flex flex-wrap py-5">
+          <div class="w-full md:w-1/6">
+            <button
+              @click='show'
+              class='text-white font-bold py-2 px-4 rounded float-left rounded-full h-full'
+              :disabled="cari !== ''"
+              :class="[ cari !== '' ? 'bg-gray-500' : 'bg-blue-500 hover:bg-blue-700' ]"
+            >
+              Tambah Data
+            </button>
           </div>
-          <div class="px-6 py-4">
-            <button @click="confirmDelete(item.id)" class="inline-block bg-red-500 rounded-full px-3 py-1 text-sm font-semibold text-gray-200 mr-2">
-              <svg class="fill-current w-5 h-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
-              </svg>
-            </button>
-            <button @click="editData(item.id)" class="inline-block bg-yellow-500 rounded-full px-3 py-1 text-sm font-semibold text-gray-200 mr-2">
-              <svg class="fill-current w-5 h-5" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
-                <path d="M2 12.88V16h3.12L14 7.12 10.88 4 2 12.88zm14.76-8.51c.33-.33.33-.85 0-1.18l-1.95-1.95c-.33-.33-.85-.33-1.18 0L12 2.88 15.12 6l1.64-1.63z"/>
-              </svg>
-            </button>
+        </div>
+        <div class="flex flex-wrap">
+          <div class="flex-auto max-w-sm rounded block border border-gray-200 mx-2 my-2 overflow-hidden shadow-lg" v-for='(item, index) in countData' :key='index' >
+            <img class="w-full h-16 object-cover" :src="`https://picsum.photos/1920/1080?random=${index + 1}`" alt="Just Picture">
+            <div class="px-6 py-4">
+              <div class="font-bold text-xl mb-1 text-left">
+                {{ item.nama }}
+              </div>
+              <p class="text-gray-600 text-sm text-left">
+                {{ item.tanggal | moment("DD-MM-YYYY") }}
+              </p>
+              <hr class="my-2">
+              <p class="text-gray-600 text-base text-left">
+                {{ item.keterangan }}
+              </p>
+              <p class="text-base text-left font-bold" :class="[ item.pengeluaran === true ? 'text-red-500' : 'text-green-500' ]">
+                {{ item.nominal | currency }}
+              </p>
+            </div>
+            <div class="px-6 py-4">
+              <button @click="confirmDelete(item.id)" class="inline-block bg-red-500 rounded-full px-3 py-1 text-sm font-semibold text-gray-200 mr-2">
+                <svg class="fill-current w-5 h-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                  <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+                </svg>
+              </button>
+              <button @click="editData(item.id)" class="inline-block bg-yellow-500 rounded-full px-3 py-1 text-sm font-semibold text-gray-200 mr-2">
+                <svg class="fill-current w-5 h-5" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+                  <path d="M2 12.88V16h3.12L14 7.12 10.88 4 2 12.88zm14.76-8.51c.33-.33.33-.85 0-1.18l-1.95-1.95c-.33-.33-.85-.33-1.18 0L12 2.88 15.12 6l1.64-1.63z"/>
+                </svg>
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -211,7 +235,8 @@ export default {
     tmpUpdate: {},
     sort: 'nama',
     id: null,
-    index: null
+    index: null,
+    cari: ''
   }),
   validations: {
     nama: {
@@ -356,8 +381,15 @@ export default {
       jml_pemasukan: 'transaction/countPemasukan'
     }),
     countData () {
-      if (this.sort !== '') return _.orderBy(this.allData, this.sort)
-      return _.orderBy(this.allData, 'nama')
+      let filteredData = this.allData
+      if (this.cari !== '') {
+        filteredData = this.allData.filter((data) => {
+          return (data.nama.toLowerCase().includes(this.cari.toLowerCase()))
+        })
+      }
+
+      if (this.sort !== '') return _.orderBy(filteredData, this.sort)
+      return _.orderBy(filteredData, 'nama')
     },
     sisa () {
       return this.jml_pemasukan - this.jml_pengeluaran

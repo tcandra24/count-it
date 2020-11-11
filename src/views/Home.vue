@@ -34,7 +34,7 @@
               Pemasukan dan Pengeluaran
             </p>
             <hr class="my-2">
-            <chart :chart-data="dataset" :options="options" />
+            <chart :chart-data="chartData" :options="options" />
           </div>
         </div>
         <div class="flex-auto max-w-sm rounded block border border-gray-200 mx-2 my-2 overflow-hidden shadow-lg" >
@@ -106,10 +106,10 @@
 <script>
 import { mapGetters } from 'vuex'
 import _ from 'lodash'
-import chart from '@/components/Chart'
+import chart from '@/plugins/chart.js'
 export default {
   data: () => ({
-    dataset: {},
+    chartData: {},
     options: {},
     tahun: 2020
   }),
@@ -160,7 +160,7 @@ export default {
         return data.bln
       })
 
-      this.dataset = {
+      this.chartData = {
         labels: arrayBlnPengeluaran.length > arrayBlnPemasukan.length ? arrayBlnPengeluaran : arrayBlnPemasukan,
         datasets: [
           {

@@ -1,4 +1,4 @@
-count-it : Kedepannya 
+count-it : Planning 
 - tambahan tipe transaksi (Pemasukan | Pengeluaran) check
 - tambahan kategori transaksi
 - grafik pemasukan atau pengeluaran check
@@ -7,5 +7,6 @@ count-it : Kedepannya
 - pencarian data
 - tambah rumus untuk perhitungan
 - paging
-- halaman About
+- halaman About check
 - footer check
+- filter harga
