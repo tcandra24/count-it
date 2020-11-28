@@ -4,9 +4,13 @@ count-it : Planning
 - grafik pemasukan atau pengeluaran check
 - Top 10 Pengeluaran pada bulan ini check
 - Top 10 Pemasukan pada bulan ini check
-- pencarian data
+- pencarian data check
 - tambah rumus untuk perhitungan
-- paging
+- paging check ( nomor paging jika melebihi 5 menjadi ... && jika posisi paging di 2 dan melakukan filter atau merubah show entries maka page yang tampil masih 2 harusnya berubah menjadi 1 check )
 - halaman About check
 - footer check
 - filter harga
+- rekap pengeluaran dan pemasukan dalam tabel
+- tiap bulan menyeleksi pengeluaran dan pemasukan (jika di bulan kemarin pengeluaran lebih besar dari bulan sekarang muncul notifikasi di sebelah angka pemasukan dan pengeluaran dalam bentuk persen ) check
+- filter tanggal
+- currency bisa di ubah
