@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import VuexPersist from 'vuex-persist'
 import transaction from '@/store/transaction'
+import categories from '@/store/categories'
 
 const persist = new VuexPersist({
   key: 'countIt-data',
@@ -19,6 +20,7 @@ export default new Vuex.Store({
   actions: {
   },
   modules: {
-    transaction
+    transaction,
+    categories
   }
 })

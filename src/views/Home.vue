@@ -1,6 +1,6 @@
 <template>
-  <div class="about">
-    <section class="relative py-8 px-4">
+  <div class="home">
+    <!-- <section class="relative py-8 px-4">
       <div class="z-20 relative text-gray-800 container mx-auto text-left">
         <h1 class="mb-4 opacity-75">Count IT</h1>
         <p class="leading-normal opacity-75">Menghitung pengeluaran secara otomatis</p>
@@ -10,7 +10,7 @@
       <div class="absolute inset-0 h-full z-10">
         <img src="http://3.bp.blogspot.com/-OlHVbclWofM/WUHHAo9cZeI/AAAAAAAAGCI/xx9R8nVEnlIOe16iHvUXfsRseYTdgYp5ACHMYBhgL/s1600/tmc18-anime-background-wallpaper-anime-images-in-high-quality.jpg" alt="" class="h-full w-full object-cover">
       </div>
-    </section>
+    </section> -->
     <div class='container mx-auto mt-10'>
       <div class="flex flex-wrap">
         <div class="flex-auto w-full rounded block border border-gray-200 mx-2 my-2 overflow-hidden shadow-lg" >
@@ -37,73 +37,114 @@
             <chart :chart-data="chartData" :options="options" />
           </div>
         </div>
-        <div class="flex-auto max-w-sm rounded block border border-gray-200 mx-2 my-2 overflow-hidden shadow-lg" >
-          <div class="px-6 py-4">
-            <div class="font-bold text-xl mb-1 text-left">
-              Pengeluaran
+        <div class="flex w-full mx-2 my-2">
+          <div class="flex flex-wrap justify-between">
+            <div class="mb-1 overflow-hidden shadow-lg rounded block lg:w-1/4 w-1/2">
+              <div class="flex flex-column">
+                <div class="font-bold text-xl text-left bg-green-500 w-1/3 text-gray-200 py-6 justify-center items-center flex">
+                  <svg class="w-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </div>
+                <div class="w-3/4 my-auto">
+                  <h4 class="text-gray-600">Total Pemasukan ({{ TotPemasukan.jumlah.length }})</h4>
+                  <p class="font-bold">{{ TotPemasukan.jumlahRp | currency }}</p>
+                </div>
+              </div>
             </div>
-            <p class="text-gray-600 text-sm text-left">
-              Top 10
-            </p>
-            <hr class="my-2">
-            <p class="text-base text-left" v-if="pengeluaranTop.length > 0">
-              <ul class="px-0">
-                <li class="list-none py-2 px-2 border-b-2 flex" v-for="(topPeng, index) in pengeluaranTop.slice(0, 10)" :key="index">
-                  <div class="py-3 px-2 font-bold">
-                    {{ index + 1 }}
-                  </div>
-                  <div class="flex-auto ml-3">
-                    <div>
-                      {{ topPeng.nama }}
-                    </div>
-                    <div class="text-gray-600 text-sm">
-                      {{ topPeng.nominal | currency }}
-                    </div>
-                  </div>
-                </li>
-              </ul>
-            </p>
-            <p v-else class="text-base text-left">
-              Belum ada data transaksi
-            </p>
+            <div class="mb-1 overflow-hidden shadow-lg rounded block lg:w-1/4 w-1/2">
+              <div class="flex flex-column">
+                <div class="font-bold text-xl text-left bg-red-500 w-1/3 text-gray-200 py-6 justify-center items-center flex">
+                  <svg class="w-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+                </div>
+                <div class="w-3/4 my-auto">
+                  <h4 class="text-gray-600">Total Pengeluaran ({{ TotPengeluaran.jumlah.length }})</h4>
+                  <p class="font-bold">{{ TotPengeluaran.jumlahRp | currency }}</p>
+                </div>
+              </div>
+            </div>
+            <div class="mb-1 overflow-hidden shadow-lg rounded block lg:w-1/4 w-1/2">
+              <div class="flex flex-column">
+                <div class="font-bold text-xl text-left bg-blue-500 w-1/3 text-gray-200 py-6 justify-center items-center flex">
+                  <svg class="w-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                </div>
+                <div class="w-3/4 my-auto">
+                  <h4 class="text-gray-600">Total Transaksi ({{ allData.length }})</h4>
+                  <p class="font-bold">{{ (TotPemasukan.jumlahRp + TotPengeluaran.jumlahRp) | currency }}</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div class="flex-auto max-w-sm rounded block border border-gray-200 mx-2 my-2 overflow-hidden shadow-lg" >
-          <div class="px-6 py-4">
-            <div class="font-bold text-xl mb-1 text-left">
-              Pemasukan
+          <div class="border-b border-gray-300">
+            <div class="px-6 py-2 flex">
+              <div class="p-4 mr-4 text-red-500 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-500">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+              </div>
+              <div class="font-bold text-lg text-left my-auto">
+                Pengeluaran Per Bulan
+              </div>
             </div>
-            <p class="text-gray-600 text-sm text-left">
-              Top 10
-            </p>
-            <hr class="my-2">
-            <div class="text-base text-left" v-if="pemasukanTop.length > 0">
-              <ul class="px-0 transform">
-                <li
-                  class="list-none py-2 px-2 border-b-2 flex items"
-                  v-for="(topPem, index) in pemasukanTop.slice(0, 10)"
-                  :key="index"
-                >
-                  <div class="py-3 px-2 font-bold">
-                    {{ index + 1 }}
-                  </div>
-                  <div class="flex-auto ml-3">
-                    <div>
-                      {{ topPem.nama }}
-                    </div>
-                    <div class="text-gray-600 text-sm">
-                      {{ topPem.nominal | currency }}
-                    </div>
-                  </div>
-                </li>
-              </ul>
+          </div>
+          <div class="border-b border-gray-300">
+            <div class="text-base text-left" v-if="pengeluaranTop.length > 0">
+              <table class="table-fixed w-full">
+                <thead>
+                  <tr class="bg-gray-200">
+                    <th class="w-1/4 text-center">Bulan</th>
+                    <th class="w-2/5 text-center">Nominal</th>
+                    <th class="w-1/3 text-center">Jumlah Pengeluaran</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="(data, index) in pengeluaranTable" :key="index" class="border-b-2 text-gray-600">
+                    <td class="text-center py-2">{{ data.bln }} {{ data.tahun }} </td>
+                    <td class="py-2 px-2">{{ data.nominal | currency }}</td>
+                    <td class="text-center py-2"> {{ data.jumlah }} </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
             <p class="text-base text-left" v-else>
               Belum ada data transaksi
             </p>
           </div>
         </div>
-        <div class="flex-auto max-w-sm h-full rounded block border border-gray-200 mx-2 my-2 overflow-hidden shadow-lg" >
+        <div class="flex-auto max-w-sm rounded block border border-gray-200 mx-2 my-2 overflow-hidden shadow-lg" >
+          <div class="border-b border-gray-300">
+            <div class="px-6 py-2 flex">
+              <div class="p-4 mr-4 text-green-500 bg-green-100 rounded-full dark:text-green-100 dark:bg-green-500">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+              </div>
+              <div class="font-bold text-lg text-left my-auto">
+                Pemasukan Per Bulan
+              </div>
+            </div>
+          </div>
+          <div class="border-b border-gray-300">
+            <div class="text-base text-left" v-if="pemasukanTop.length > 0">
+              <table class="table-fixed w-full">
+                <thead>
+                  <tr class="bg-gray-200">
+                    <th class="w-1/4 text-center">Bulan</th>
+                    <th class="w-2/5 text-center">Nominal</th>
+                    <th class="w-1/3 text-center">Jumlah Pemasukan</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="(data, index) in pemasukanTable" :key="index" class="border-b-2 text-gray-600">
+                    <td class="text-center py-2">{{ data.bln }} {{ data.tahun }} </td>
+                    <td class="py-2 px-2">{{ data.nominal | currency }}</td>
+                    <td class="py-2 text-center"> {{ data.jumlah }} </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="text-base text-left" v-else>
+              Belum ada data transaksi
+            </p>
+          </div>
+        </div>
+        <div class="flex-auto max-w-sm flex-row h-full rounded block border border-gray-200 mx-2 my-2 overflow-hidden shadow-lg" >
           <div class="px-6 py-4">
             <div class="font-bold mb-1 text-left flex">
               <div class="text-xl w-2/3">
@@ -228,58 +269,92 @@
             </div>
           </div>
         </div>
-        <div class="flex-auto max-w-sm rounded block border border-gray-200 mx-2 my-2 overflow-hidden shadow-lg" >
-          <div class="px-6 py-4">
-            <div class="font-bold text-xl mb-1 text-left">
-              Pengeluaran Tabel Per Bulan
+        <div class="flex-auto max-w-sm rounded block border border-gray-200 mx-2 my-2 overflow-hidden shadow-lg mb-24" >
+          <div class="border-b border-gray-300">
+            <div class="px-6 py-2 flex">
+              <div class="p-4 mr-4 text-red-500 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-500">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor"  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M13.408 18c.498-3.947 5.592-7.197 5.592-17h-14c0 9.803 5.105 13.053 5.604 17h2.804zm-3.614-11.472l1.46-.202.643-1.326.643 1.326 1.46.202-1.063 1.021.26 1.451-1.3-.695-1.3.695.26-1.451-1.063-1.021zm-3.803 4.128c.286.638.585 1.231.882 1.783-4.065-1.348-6.501-5.334-6.873-9.439h4.077c.036.482.08.955.139 1.405h-2.689c.427 2.001 1.549 4.729 4.464 6.251zm10.009 10.963v1.381h-8v-1.381c1.941 0 2.369-1.433 2.571-2.619h2.866c.193 1.187.565 2.619 2.563 2.619zm8-18.619c-.372 4.105-2.808 8.091-6.873 9.438.297-.552.596-1.145.882-1.783 2.915-1.521 4.037-4.25 4.464-6.251h-2.688c.059-.45.103-.922.139-1.405h4.076z"/></svg>
+              </div>
+              <div class="font-bold text-lg text-left my-auto">
+                Pengeluaran
+              </div>
             </div>
-            <hr class="my-2">
-            <div class="text-base text-left" v-if="pemasukanTop.length > 0">
-              <table class="table-fixed w-full text-gray-600">
-                <thead>
-                  <tr class="border-b-2">
-                    <th class="w-1/4 text-center">Bulan</th>
-                    <th class="w-2/5 text-center">Nominal</th>
-                    <th class="w-1/3 text-center">Jumlah Pengeluaran</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="(data, index) in pengeluaranTable" :key="index" class="border-b-2">
-                    <td class="py-2">{{ data.bln }} {{ data.tahun }} </td>
-                    <td class="py-2">{{ data.nominal | currency }}</td>
-                    <td class="text-center py-2"> {{ data.jumlah }} </td>
-                  </tr>
-                </tbody>
-              </table>
+          </div>
+          <div class="border-b border-gray-300">
+            <div class="w-full pt-12">
+              <div class="overflow-hidden rounded-full w-20 -mt-16 mx-auto bg-white border border-gray-300">
+                Top 10
+              </div>
             </div>
-            <p class="text-base text-left" v-else>
+            <p class="text-base text-left" v-if="pengeluaranTop.length > 0">
+              <ul class="px-0">
+                <li class="list-none py-2 px-2 border-b-2 flex" v-for="(topPeng, index) in pengeluaranTop.slice(0, 10)" :key="index">
+                  <div class="py-3 px-5 font-bold rounded-full text-gray-600 bg-gray-100">
+                    {{ index + 1 }}
+                  </div>
+                  <div class="flex-auto ml-3">
+                    <div>
+                      {{ topPeng.nama }}
+                    </div>
+                    <div class="text-gray-600 text-sm">
+                      {{ topPeng.nominal | currency }}
+                    </div>
+                  </div>
+                  <div class="py-2 px-2" v-if="index >= 0 && index <= 2">
+                    <div class="p-1" :class="[index === 0 ? 'text-yellow-600' : index === 1 ? 'text-gray-600' : 'text-yellow-800' ]">
+                      <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" width="24" height="24" viewBox="0 0 24 24"><path d="M12 10c-3.865 0-7 3.134-7 7s3.135 7 7 7 7-3.134 7-7-3.135-7-7-7zm0 12c-2.762 0-5-2.239-5-5s2.238-5 5-5 5 2.239 5 5-2.238 5-5 5zm1.484-4.315l1.516-1.457-2.083-.287-.917-1.892-.917 1.892-2.083.287 1.516 1.457-.369 2.07 1.853-.992 1.854.992-.37-2.07zm1.62-9.822l-2.48-3.329 3.376-4.534h5l-5.896 7.863zm-2.974.137h1.828l-5.958-8h-1.869l5.999 8zm-7.249-8h-1.881l6 8h1.881l-6-8z"/></svg>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </p>
+            <p v-else class="text-base text-left">
               Belum ada data transaksi
             </p>
           </div>
         </div>
-        <div class="flex-auto max-w-sm rounded block border border-gray-200 mx-2 my-2 overflow-hidden shadow-lg" >
-          <div class="px-6 py-4">
-            <div class="font-bold text-xl mb-1 text-left">
-              Pemasukan Tabel Per Bulan
+        <div class="flex-auto max-w-sm rounded block border border-gray-200 mx-2 my-2 overflow-hidden shadow-lg mb-24" >
+          <div class="border-b border-gray-300">
+            <div class="px-6 py-2 flex">
+              <div class="p-4 mr-4 text-green-500 bg-green-100 rounded-full dark:text-green-100 dark:bg-green-500">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor"  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M13.408 18c.498-3.947 5.592-7.197 5.592-17h-14c0 9.803 5.105 13.053 5.604 17h2.804zm-3.614-11.472l1.46-.202.643-1.326.643 1.326 1.46.202-1.063 1.021.26 1.451-1.3-.695-1.3.695.26-1.451-1.063-1.021zm-3.803 4.128c.286.638.585 1.231.882 1.783-4.065-1.348-6.501-5.334-6.873-9.439h4.077c.036.482.08.955.139 1.405h-2.689c.427 2.001 1.549 4.729 4.464 6.251zm10.009 10.963v1.381h-8v-1.381c1.941 0 2.369-1.433 2.571-2.619h2.866c.193 1.187.565 2.619 2.563 2.619zm8-18.619c-.372 4.105-2.808 8.091-6.873 9.438.297-.552.596-1.145.882-1.783 2.915-1.521 4.037-4.25 4.464-6.251h-2.688c.059-.45.103-.922.139-1.405h4.076z"/></svg>
+              </div>
+              <div class="font-bold text-lg text-left my-auto">
+                Pemasukan
+              </div>
             </div>
-            <hr class="my-2">
+          </div>
+          <div class="border-b border-gray-300">
+            <div class="w-full pt-12">
+              <div class="overflow-hidden rounded-full w-20 -mt-16 mx-auto bg-white border border-gray-300">
+                Top 10
+              </div>
+            </div>
             <div class="text-base text-left" v-if="pemasukanTop.length > 0">
-              <table class="table-fixed w-full text-gray-600">
-                <thead>
-                  <tr class="border-b-2">
-                    <th class="w-1/4 text-center">Bulan</th>
-                    <th class="w-2/5 text-center">Nominal</th>
-                    <th class="w-1/3 text-center">Jumlah Pemasukan</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="(data, index) in pemasukanTable" :key="index" class="border-b-2">
-                    <td class="py-2">{{ data.bln }} {{ data.tahun }} </td>
-                    <td class="py-2">{{ data.nominal | currency }}</td>
-                    <td class="py-2 text-center"> {{ data.jumlah }} </td>
-                  </tr>
-                </tbody>
-              </table>
+              <ul class="px-0 transform">
+                <li
+                  class="list-none py-2 px-2 border-b-2 flex items"
+                  v-for="(topPem, index) in pemasukanTop.slice(0, 10)"
+                  :key="index"
+                >
+                  <div class="py-3 px-5 font-bold rounded-full text-gray-600 bg-gray-100">
+                    {{ index + 1 }}
+                  </div>
+                  <div class="flex-auto ml-3">
+                    <div>
+                      {{ topPem.nama }}
+                    </div>
+                    <div class="text-gray-600 text-sm">
+                      {{ topPem.nominal | currency }}
+                    </div>
+                  </div>
+                  <div class="py-2 px-2" v-if="index >= 0 && index <= 2">
+                    <div class="p-1" :class="[index === 0 ? 'text-yellow-600' : index === 1 ? 'text-gray-600' : 'text-yellow-800' ]">
+                      <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" width="24" height="24" viewBox="0 0 24 24"><path d="M12 10c-3.865 0-7 3.134-7 7s3.135 7 7 7 7-3.134 7-7-3.135-7-7-7zm0 12c-2.762 0-5-2.239-5-5s2.238-5 5-5 5 2.239 5 5-2.238 5-5 5zm1.484-4.315l1.516-1.457-2.083-.287-.917-1.892-.917 1.892-2.083.287 1.516 1.457-.369 2.07 1.853-.992 1.854.992-.37-2.07zm1.62-9.822l-2.48-3.329 3.376-4.534h5l-5.896 7.863zm-2.974.137h1.828l-5.958-8h-1.869l5.999 8zm-7.249-8h-1.881l6 8h1.881l-6-8z"/></svg>
+                    </div>
+                  </div>
+                </li>
+              </ul>
             </div>
             <p class="text-base text-left" v-else>
               Belum ada data transaksi
@@ -555,6 +630,18 @@ export default {
         pemasukan: pemasukan,
         listPengeluaran: statsPengeluaran,
         listPemasukan: statsPemasukan
+      }
+    },
+    TotPengeluaran () {
+      return {
+        jumlah: this.allData.filter(data => data.pengeluaran === true),
+        jumlahRp: _.sumBy(this.pengeluaranTable, function (data) { return data.nominal })
+      }
+    },
+    TotPemasukan () {
+      return {
+        jumlah: this.allData.filter(data => data.pengeluaran === false),
+        jumlahRp: _.sumBy(this.pemasukanTable, function (data) { return data.nominal })
       }
     }
   },

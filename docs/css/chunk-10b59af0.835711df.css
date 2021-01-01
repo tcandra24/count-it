@@ -1,0 +1,1 @@
+.toggle__dot{left:-.25rem;transition:all .3s ease-in-out}input:checked~.toggle__dot{transform:translateX(100%);background-color:#ececec}

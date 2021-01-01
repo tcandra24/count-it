@@ -12,7 +12,8 @@ export default {
         tanggal: value.tanggal,
         nominal: value.nominal,
         keterangan: value.keterangan,
-        pengeluaran: value.pengeluaran
+        pengeluaran: value.pengeluaran,
+        kategori: value.kategori
       })
     },
     updateData: (state, value) => {
@@ -22,7 +23,8 @@ export default {
         tanggal: value.tanggal,
         nominal: value.nominal,
         keterangan: value.keterangan,
-        pengeluaran: value.pengeluaran
+        pengeluaran: value.pengeluaran,
+        kategori: value.kategori
       })
     },
     deleteData: (state, value) => {

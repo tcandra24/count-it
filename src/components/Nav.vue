@@ -13,17 +13,22 @@
     </div>
     <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto" :class="showMenu ? 'block': 'hidden' ">
       <div class="text-sm lg:flex-grow">
-        <router-link :class="[ $route.path === '/' ? 'text-white' : 'text-gray-200' ]" class="block mt-4 lg:inline-block lg:mt-0 hover:text-white mr-4" to="/">
+        <router-link :class="[ $route.path === '/' ? 'text-white' : 'text-gray-400' ]" class="block mt-4 lg:inline-block lg:mt-0 hover:text-white mr-4" to="/">
           <div class="text-lg">
             Dashboard
           </div>
         </router-link>
-        <router-link :class="[ $route.path === '/count' ? 'text-white' : 'text-gray-200' ]" class="block mt-4 lg:inline-block lg:mt-0 hover:text-white mr-4" to="/count">
+        <router-link :class="[ $route.path === '/count' ? 'text-white' : 'text-gray-400' ]" class="block mt-4 lg:inline-block lg:mt-0 hover:text-white mr-4" to="/count">
           <div class="text-lg">
             Count
           </div>
         </router-link>
-        <router-link :class="[ $route.path === '/about' ? 'text-white' : 'text-gray-200' ]" class="block mt-4 lg:inline-block lg:mt-0 hover:text-white mr-4" to="/about">
+        <router-link :class="[ $route.path === '/categories' ? 'text-white' : 'text-gray-400' ]" class="block mt-4 lg:inline-block lg:mt-0 hover:text-white mr-4" to="/categories">
+          <div class="text-lg">
+            Categories
+          </div>
+        </router-link>
+        <router-link :class="[ $route.path === '/about' ? 'text-white' : 'text-gray-400' ]" class="block mt-4 lg:inline-block lg:mt-0 hover:text-white mr-4" to="/about">
           <div class="text-lg">
             About
           </div>

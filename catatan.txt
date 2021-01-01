@@ -1,6 +1,6 @@
 count-it : Planning 
 - tambahan tipe transaksi (Pemasukan | Pengeluaran) check
-- tambahan kategori transaksi
+- tambahan kategori transaksi check
 - grafik pemasukan atau pengeluaran check
 - Top 10 Pengeluaran pada bulan ini check
 - Top 10 Pemasukan pada bulan ini check
@@ -9,8 +9,10 @@ count-it : Planning
 - paging check ( nomor paging jika melebihi 5 menjadi ... && jika posisi paging di 2 dan melakukan filter atau merubah show entries maka page yang tampil masih 2 harusnya berubah menjadi 1 check )
 - halaman About check
 - footer check
-- filter harga
-- rekap pengeluaran dan pemasukan dalam tabel
+- filter harga check
+- rekap pengeluaran dan pemasukan dalam tabel check
 - tiap bulan menyeleksi pengeluaran dan pemasukan (jika di bulan kemarin pengeluaran lebih besar dari bulan sekarang muncul notifikasi di sebelah angka pemasukan dan pengeluaran dalam bentuk persen ) check
-- filter tanggal
+- filter tanggal check
 - currency bisa di ubah
+- tampilan design lebih menarik 
+- lazy load check

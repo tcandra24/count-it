@@ -9,14 +9,14 @@
     </div>
     <div class="flex flex-wrap">
       <div class='container px-3 md:w-1/5'>
-        <div class="flex-auto max-w-sm rounded block border border-gray-200 mx-1 my-3 overflow-hidden">
+        <div class="flex-auto lg:max-w-sm rounded block border border-gray-200 mx-1 my-3 sm:w-full">
           <div class="px-6 py-4">
             <div class="mb-1 text-left">
               <p class="my-2">
                 Filter :
               </p>
               <div class="relative w-full">
-                <select v-model="sort" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                <select v-model="sort" class="block rounded-md appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                   <option disabled value="">Filter</option>
                   <option value="nama">Nama</option>
                   <option value="tanggal">Tanggal</option>
@@ -29,7 +29,7 @@
               <hr class="my-4">
               <div class="relative w-full">
                 <input
-                  class='appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 mb-1 leading-tight focus:outline-none focus:border-gray-500'
+                  class='appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded-md py-3 px-4 mb-1 leading-tight focus:outline-none focus:border-gray-500'
                   id='grid-nama'
                   type='text'
                   placeholder='Cari...'
@@ -38,6 +38,41 @@
                 />
               </div>
               <hr class="my-4">
+              <div class="relative w-full flex flex-row flex-wrap">
+                <datepicker
+                  class='appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded-md py-3 px-4 mb-1 leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
+                  id='grid-tanggal'
+                  placeholder="Tanggal Awal"
+                  v-model="filter.tglAwal"
+                >
+                </datepicker>
+                <p class="text-sm text-gray-600 mx-auto">
+                  s/d
+                </p>
+                <datepicker
+                  class='appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded-md py-3 px-4 mb-1 leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
+                  id='grid-tanggal'
+                  placeholder="Tanggal Akhir"
+                  v-model="filter.tglAkhir"
+                >
+                </datepicker>
+                <input v-model="filter.tglFilter" type="checkbox" class="form-checkbox h-5 w-5 ml-3 mt-2 text-teal-600"><span class="ml-2 mt-2 text-sm text-gray-600">Gunakan</span>
+              </div>
+              <hr class="my-4">
+              <div class="relative w-full">
+                <currency-input
+                  class='appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 mb-1 leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
+                  v-currency="{currency: 'IDR', locale: 'id'}"
+                  placeholder='Harga Minimum'
+                  v-model="filter.minNominal"
+                />
+                <currency-input
+                  class='appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 mb-1 mt-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
+                  v-currency="{currency: 'IDR', locale: 'id'}"
+                  placeholder='Harga Maximum'
+                  v-model="filter.maxNominal"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -69,70 +104,85 @@
           </div>
         </div>
         <div class="flex flex-wrap">
-          <div class="flex-auto max-w-sm rounded block border border-gray-200 mx-2 my-2 overflow-hidden shadow-lg" v-for='(item, index) in countData.count' :key='index' >
-            <img class="w-full h-16 object-cover" :src="`https://picsum.photos/1920/1080?random=${index + 1}`" alt="Just Picture">
-            <div class="px-6 py-4">
-              <div class="font-bold text-xl mb-1 text-left">
-                {{ item.nama }}
+          <div class="flex flex-wrap" v-if="countData.count.length > 0">
+            <div class="flex-auto w-auto rounded block border border-gray-200 mx-2 my-2 overflow-hidden shadow-lg" v-for='(item, index) in countData.count' :key='index' >
+              <div class="relative">
+                <img class="w-full h-24 object-cover" :src="`https://picsum.photos/1920/1080?grayscale&random=${index + 1}`" alt="Just Picture">
+                <div class="w-full h-24 absolute top-0 bg-opacity-25 py-5 px-4 text-white text-opacity-75" :class="dataKategori(item.kategori).warna">
+                  <p class="font-bold text-xs uppercase text-left tracking-widest">{{dataKategori(item.kategori).kategori}}</p>
+                </div>
               </div>
-              <p class="text-gray-600 text-sm text-left">
-                {{ item.tanggal | moment("DD-MM-YYYY") }}
-              </p>
-              <hr class="my-2">
-              <p class="text-gray-600 text-base text-left">
-                {{ item.keterangan }}
-              </p>
-              <p class="text-base text-left font-bold" :class="[ item.pengeluaran === true ? 'text-red-500' : 'text-green-500' ]">
-                {{ item.nominal | currency }}
-              </p>
-            </div>
-            <div class="px-6 py-4">
-              <button @click="confirmDelete(item.id)" class="inline-block bg-red-500 rounded-full px-3 py-1 text-sm font-semibold text-gray-200 mr-2">
-                <svg class="fill-current w-5 h-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                  <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
-                </svg>
-              </button>
-              <button @click="editData(item.id)" class="inline-block bg-yellow-500 rounded-full px-3 py-1 text-sm font-semibold text-gray-200 mr-2">
-                <svg class="fill-current w-5 h-5" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
-                  <path d="M2 12.88V16h3.12L14 7.12 10.88 4 2 12.88zm14.76-8.51c.33-.33.33-.85 0-1.18l-1.95-1.95c-.33-.33-.85-.33-1.18 0L12 2.88 15.12 6l1.64-1.63z"/>
-                </svg>
-              </button>
+              <div class="px-6 py-4">
+                <div class="font-bold text-xl mb-1 text-left">
+                  {{ item.nama }}
+                </div>
+                <p class="text-gray-600 text-sm text-left">
+                  {{ item.tanggal | moment("DD-MM-YYYY") }}
+                </p>
+                <hr class="my-2">
+                <p class="text-gray-600 text-base text-left">
+                  {{ item.keterangan }}
+                </p>
+                <p class="text-base text-left font-bold" :class="[ item.pengeluaran === true ? 'text-red-500' : 'text-green-500' ]">
+                  {{ item.nominal | currency }}
+                </p>
+              </div>
+              <div class="px-6 py-2">
+                <button @click="confirmDelete(item.id)" class="inline-block bg-white border-red-300 border-2 rounded-full px-3 py-1 text-sm font-semibold text-gray-200 mr-2">
+                  <svg fill="rgb(245, 101, 101)" class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                    <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+                  </svg>
+                </button>
+                <button @click="editData(item.id)" class="inline-block bg-white border-yellow-500 border-2 rounded-full px-3 py-1 text-sm font-semibold text-gray-200 mr-2">
+                  <svg fill="rgb(252, 211, 77)" class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+                    <path d="M2 12.88V16h3.12L14 7.12 10.88 4 2 12.88zm14.76-8.51c.33-.33.33-.85 0-1.18l-1.95-1.95c-.33-.33-.85-.33-1.18 0L12 2.88 15.12 6l1.64-1.63z"/>
+                  </svg>
+                </button>
+              </div>
             </div>
           </div>
+          <div v-else>
+            <h3 class="text-sm">Data Tidak Ditemukan</h3>
+          </div>
         </div>
-        <div class="flex flex-wrap py-5">
-          <button
-            :disabled="pageNumber == 0"
-            @click="prevPage"
-            class="mx-2 py-2 px-2 block text-xl"
-            :class="[ pageNumber == 0 ? 'text-gray-300 cursor-not-allowed' : 'text-gray-700 hover:bg-gray-300' ]"
-          >Prev</button>
-          <ul class="flex">
-            <li
-              class="mx-2 py-2 px-4 block text-xl cursor-pointer"
-              v-for="(page) in pagingNumber.pageNum"
-              :key="page"
-              :class="[(pageNumber + 1) == page ? 'bg-gray-300' : 'hover:bg-gray-300' ]"
-              :disabled="pageNumber == page"
-              @click="pageNumber = (page - 1)"
-            >
-              <p v-if="page == pagingNumber.start + 1 && pagingNumber.start > 0">
-                ...
-              </p>
-              <p v-else-if="page == pagingNumber.end && pagingNumber.end < Math.ceil(countData.filtered.length / size)">
-                ...
-              </p>
-              <p v-else>
-                {{ page }}
-              </p>
-            </li>
-          </ul>
-          <button
-            :disabled="pageNumber + 1 >= Math.ceil(countData.filtered.length / size)"
-            @click="nextPage"
-            class="mx-2 py-2 px-2 block text-xl"
-            :class="[ pageNumber + 1 >= Math.ceil(countData.filtered.length / size) ? 'text-gray-300 cursor-not-allowed' : 'text-gray-700 hover:bg-gray-300' ]"
-          >Next</button>
+        <div class="h-40">
+          <div
+            class="flex flex-wrap py-5"
+            v-show="countData.count.length > 0"
+          >
+            <button
+              :disabled="pageNumber == 0"
+              @click="prevPage"
+              class="mx-2 py-2 px-2 block text-xl"
+              :class="[ pageNumber == 0 ? 'text-gray-300 cursor-not-allowed' : 'text-gray-700 hover:bg-gray-300' ]"
+            >Prev</button>
+            <ul class="flex">
+              <li
+                class="mx-2 py-2 px-4 block text-xl cursor-pointer"
+                v-for="(page) in pagingNumber.pageNum"
+                :key="page"
+                :class="[(pageNumber + 1) == page ? 'bg-gray-300' : 'hover:bg-gray-300' ]"
+                :disabled="pageNumber == page"
+                @click="pageNumber = (page - 1)"
+              >
+                <p v-if="page == pagingNumber.start + 1 && pagingNumber.start > 0">
+                  ...
+                </p>
+                <p v-else-if="page == pagingNumber.end && pagingNumber.end < Math.ceil(countData.filtered.length / size)">
+                  ...
+                </p>
+                <p v-else>
+                  {{ page }}
+                </p>
+              </li>
+            </ul>
+            <button
+              :disabled="pageNumber + 1 >= Math.ceil(countData.filtered.length / size)"
+              @click="nextPage"
+              class="mx-2 py-2 px-2 block text-xl"
+              :class="[ pageNumber + 1 >= Math.ceil(countData.filtered.length / size) ? 'text-gray-300 cursor-not-allowed' : 'text-gray-700 hover:bg-gray-300' ]"
+            >Next</button>
+          </div>
         </div>
       </div>
     </div>
@@ -220,6 +270,22 @@
         <div class="flex flex-wrap -mx-3 mb-6">
           <div class="w-full px-3">
             <label class="block uppercase text-left tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-keterangan">
+              Kategori
+            </label>
+            <select
+              class="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 mb-1 leading-tight focus:outline-none focus:border-gray-500"
+              v-model.trim="$v.idKategori.$model"
+              :class="{'border-red-500 ' : $v.idKategori.$error}"
+            >
+              <option disabled value="">Kategori</option>
+              <option v-for="(k, index) in categories" :value="k.id" :key="index">{{ k.nama }}</option>
+            </select>
+            <p class="float-left text-red-500 text-xs italic" v-if="!$v.idKategori.required && $v.idKategori.$error">Kategori Tidak Boleh Kosong.</p>
+          </div>
+        </div>
+        <div class="flex flex-wrap -mx-3 mb-6">
+          <div class="w-full px-3">
+            <label class="block uppercase text-left tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-keterangan">
               Keterangan
             </label>
             <input
@@ -241,7 +307,7 @@
             </button>
           </div>
           <div class="md:w-1/4">
-            <button class="shadow float-left bg-gray-500 hover:bg-gray-700 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded-full" @click="hide">
+            <button class="shadow float-left bg-gray-500 hover:bg-gray-700 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded-full" type="reset" @click="hide">
               Cancel
             </button>
           </div>
@@ -257,6 +323,7 @@
 import Datepicker from 'vuejs-datepicker'
 import { mapActions, mapGetters } from 'vuex'
 import { required } from 'vuelidate/lib/validators'
+import warnaChoice from '@/data/warna'
 import _ from 'lodash'
 
 export default {
@@ -271,6 +338,7 @@ export default {
     tanggal: '',
     nominal: 0,
     keterangan: '',
+    idKategori: null,
     updateId: '',
     tmpUpdate: {},
     sort: 'nama',
@@ -278,7 +346,15 @@ export default {
     index: null,
     cari: '',
     size: 10,
-    pageNumber: 0
+    pageNumber: 0,
+    warnaTemplate: warnaChoice,
+    filter: {
+      tglAwal: Date.now(),
+      tglAkhir: Date.now(),
+      tglFilter: false,
+      minNominal: null,
+      maxNominal: null
+    }
   }),
   validations: {
     nama: {
@@ -288,6 +364,9 @@ export default {
       required
     },
     nominal: {
+      required
+    },
+    idKategori: {
       required
     },
     keterangan: {
@@ -319,7 +398,8 @@ export default {
           nominal: this.nominal,
           keterangan: this.keterangan,
           index: this.index,
-          pengeluaran: this.pengeluaran
+          pengeluaran: this.pengeluaran,
+          kategori: this.idKategori
         })
       } else {
         this.add({
@@ -328,7 +408,8 @@ export default {
           tanggal: this.tanggal,
           nominal: this.nominal,
           keterangan: this.keterangan,
-          pengeluaran: this.pengeluaran
+          pengeluaran: this.pengeluaran,
+          kategori: this.idKategori
         })
       }
 
@@ -336,6 +417,7 @@ export default {
       this.tanggal = ''
       this.nominal = 0
       this.keterangan = ''
+      this.idKategori = null
       this.index = null
       this.$v.$reset()
       this.hide()
@@ -344,6 +426,18 @@ export default {
         '',
         'success'
       )
+    },
+    dataKategori (idKat) {
+      const kat = this.categories.find((value, index) => {
+        return value.id === idKat
+      })
+
+      const classWarna = this.warnaTemplate.find(value => value.id === kat.warna)
+
+      return {
+        kategori: kat.nama,
+        warna: classWarna.class
+      }
     },
     editData (id) {
       this.$modal.show('form-input', { id: id })
@@ -365,6 +459,7 @@ export default {
         this.nominal = this.tmpUpdate.nominal
         this.keterangan = this.tmpUpdate.keterangan
         this.pengeluaran = this.tmpUpdate.pengeluaran
+        this.idKategori = this.tmpUpdate.kategori
       } else {
         this.id = `${new Date().getTime()}-${_.uniqueId()}`
         this.nama = ''
@@ -372,6 +467,7 @@ export default {
         this.nominal = 0
         this.keterangan = ''
         this.pengeluaran = false
+        this.idKategori = null
       }
     },
     changeBudget () {
@@ -425,6 +521,7 @@ export default {
   computed: {
     ...mapGetters({
       allData: 'transaction/allTransaction',
+      categories: 'categories/allData',
       jml_pengeluaran: 'transaction/countPengeluaran',
       jml_pemasukan: 'transaction/countPemasukan'
     }),
@@ -433,6 +530,24 @@ export default {
       if (this.cari !== '') {
         filteredData = this.allData.filter((data) => {
           return (data.nama.toLowerCase().includes(this.cari.toLowerCase()))
+        })
+      }
+
+      if (this.filter.tglFilter === true) {
+        filteredData = filteredData.filter((data) => {
+          return this.$moment(data.tanggal).isBetween(this.filter.tglAwal, this.filter.tglAkhir)
+        })
+      }
+
+      if (this.filter.minNominal !== null && this.filter.minNominal > 0) {
+        filteredData = filteredData.filter((data) => {
+          return data.nominal > this.filter.minNominal
+        })
+      }
+
+      if (this.filter.maxNominal !== null && this.filter.maxNominal > 0) {
+        filteredData = filteredData.filter((data) => {
+          return data.nominal < this.filter.maxNominal
         })
       }
 
@@ -475,7 +590,6 @@ export default {
 </script>
 <style lang="css">
 .toggle__dot {
-  top: -.25rem;
   left: -.25rem;
   transition: all 0.3s ease-in-out;
 }
