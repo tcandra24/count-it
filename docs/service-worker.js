@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/count-it/precache-manifest.7ab77482e73e7a527dbe16f7f08dc76c.js"
+  "/count-it/precache-manifest.668aabb331c4eac576f3a8584dfc944c.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "count-it"});

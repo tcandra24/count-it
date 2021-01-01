@@ -142,7 +142,7 @@
             </div>
           </div>
           <div v-else>
-            <h3 class="text-sm">Data Tidak Ditemukan</h3>
+            <h3 class="text-sm">Data Tidak Ditemukan.</h3>
           </div>
         </div>
         <div class="h-40">
