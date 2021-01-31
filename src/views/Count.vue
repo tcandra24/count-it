@@ -7,7 +7,7 @@
         <h1 class="py-2 w-full md:w-1/3 block font-bold text-gray-200">Pengeluaran : {{ jml_pengeluaran | currency }}</h1>
       </div>
     </div>
-    <div class="flex flex-wrap">
+    <div class="flex flex-wrap overflow-y-hidden">
       <div class='container px-3 md:w-1/5'>
         <div class="flex-auto lg:max-w-sm rounded block border border-gray-200 mx-1 my-3 sm:w-full">
           <div class="px-6 py-4">
@@ -186,16 +186,16 @@
         </div>
       </div>
     </div>
-    <modal name='form-input' height="auto" :min-height="500" @before-open="beforeOpen" :scrollable="true">
-      <h1 class="py-5 block uppercase text-gray-700 font-bold">Tambah Data</h1>
-      <form @submit.prevent="saveData" class='w-full max-w-lg px-5 py-5 ml-10'>
-        <div class='flex flex-wrap items-center mx-3 mb-6'>
-          <div class='w-full px-3 mb-6 md:mb-0'>
+    <modal name='form-input' :adaptive="true" height="auto" :min-height="600" width="460" :min-width="490" @before-open="beforeOpen">
+      <h1 class="py-3 block uppercase text-gray-700 font-bold">Tambah Data</h1>
+      <form @submit.prevent="saveData" class='max-w-sm px-3 py-3 ml-10'>
+        <div class='flex flex-wrap items-center mb-2'>
+          <div class='w-full px-3 md:mb-0'>
             <label
               class='mb-2 cursor-pointer flex'
               for='checkbox-jenis'
             >
-              <div :class="[pengeluaran === false ? 'bg-green-600' : 'bg-gray-600']" class="ml-3 text-white font-medium font-bold rounded-full shadow-inner items-center px-8">
+              <div :class="[pengeluaran === false ? 'bg-green-600' : 'bg-gray-600']" class="ml-3 text-white text-sm font-bold rounded-full shadow-inner items-center px-6 py-1">
                 Pemasukan
               </div>
               <div class="relative ml-3">
@@ -208,13 +208,13 @@
                 <div class="toggle__line w-10 h-6 bg-gray-400 rounded-full shadow-inner items-center"></div>
                 <div class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow inset-y-0 left-0 items-center"></div>
               </div>
-              <div :class="[pengeluaran === true ? 'bg-red-600' : 'bg-gray-600']" class="ml-3 text-white font-medium font-bold rounded-full shadow-inner items-center px-8">
+              <div :class="[pengeluaran === true ? 'bg-red-600' : 'bg-gray-600']" class="ml-3 text-white text-sm font-bold rounded-full shadow-inner items-center px-6 py-1">
                 Pengeluaran
               </div>
              </label>
           </div>
         </div>
-        <div class='flex flex-wrap -mx-3 mb-6'>
+        <div class='flex flex-wrap -mx-3 mb-2'>
           <div class='w-full px-3 mb-6 md:mb-0'>
             <label
               class='block uppercase tracking-wide text-gray-700 text-xs text-left font-bold mb-2'
@@ -233,7 +233,7 @@
             <p class="float-left text-red-500 text-xs italic" v-if="!$v.nama.required && $v.nama.$error">Nama Pembayaran Tidak Boleh Kosong.</p>
           </div>
         </div>
-        <div class='flex flex-wrap -mx-3 mb-6'>
+        <div class='flex flex-wrap -mx-3 mb-2'>
           <div class='w-full px-3 '>
             <label
               class='block uppercase text-left tracking-wide text-gray-700 text-xs font-bold mb-2'
@@ -251,7 +251,7 @@
             <p class="float-left text-red-500 text-xs italic" v-if="!$v.tanggal.required && $v.tanggal.$error">Tanggal Pembayaran Tidak Boleh Kosong.</p>
           </div>
         </div>
-        <div class="flex flex-wrap -mx-3 mb-6">
+        <div class="flex flex-wrap -mx-3 mb-2">
           <div class="w-full px-3">
             <label class="block uppercase text-left tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-nominal">
               Nominal
@@ -267,7 +267,7 @@
             <p class="float-left text-red-500 text-xs italic" v-if="!$v.nominal.required && $v.nominal.$error">Nominal Pembayaran Tidak Boleh Kosong.</p>
           </div>
         </div>
-        <div class="flex flex-wrap -mx-3 mb-6">
+        <div class="flex flex-wrap -mx-3 mb-2">
           <div class="w-full px-3">
             <label class="block uppercase text-left tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-keterangan">
               Kategori
@@ -283,7 +283,7 @@
             <p class="float-left text-red-500 text-xs italic" v-if="!$v.idKategori.required && $v.idKategori.$error">Kategori Tidak Boleh Kosong.</p>
           </div>
         </div>
-        <div class="flex flex-wrap -mx-3 mb-6">
+        <div class="flex flex-wrap -mx-3 mb-2">
           <div class="w-full px-3">
             <label class="block uppercase text-left tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-keterangan">
               Keterangan
@@ -347,6 +347,7 @@ export default {
     cari: '',
     size: 10,
     pageNumber: 0,
+    showModal: false,
     warnaTemplate: warnaChoice,
     filter: {
       tglAwal: Date.now(),
@@ -381,9 +382,11 @@ export default {
       BudgetEdit: 'transaction/changeBudget'
     }),
     show () {
+      this.showModal = true
       this.$modal.show('form-input', { id: '' })
     },
     hide () {
+      this.showModal = false
       this.$modal.hide('form-input')
     },
     saveData () {
