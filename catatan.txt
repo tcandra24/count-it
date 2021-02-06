@@ -14,5 +14,7 @@ count-it : Planning
 - tiap bulan menyeleksi pengeluaran dan pemasukan (jika di bulan kemarin pengeluaran lebih besar dari bulan sekarang muncul notifikasi di sebelah angka pemasukan dan pengeluaran dalam bentuk persen ) check
 - filter tanggal check
 - currency bisa di ubah
-- tampilan design lebih menarik 
+- tampilan design lebih menarik check 
 - lazy load check
+- pagination di categories
+- upload foto categories

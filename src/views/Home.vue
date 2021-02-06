@@ -37,358 +37,383 @@
             <chart :chart-data="chartData" :options="options" />
           </div>
         </div>
-        <div class="flex w-full mx-2 my-2">
+        <div class="flex w-full mx-2 my-2 p-2">
           <div class="flex flex-wrap justify-between">
-            <div class="mb-1 overflow-hidden shadow-lg rounded block lg:w-1/4 w-1/2">
+            <div class="mb-1 overflow-hidden rounded block lg:w-1/5 w-1/2 border shadow-lg">
               <div class="flex flex-column">
                 <div class="font-bold text-xl text-left bg-green-500 w-1/3 text-gray-200 py-6 justify-center items-center flex">
                   <svg class="w-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                 </div>
                 <div class="w-3/4 my-auto">
-                  <h4 class="text-gray-600">Total Pemasukan ({{ TotPemasukan.jumlah.length }})</h4>
+                  <h4 class="text-gray-600">Pemasukan ({{ TotPemasukan.jumlah.length }})</h4>
                   <p class="font-bold">{{ TotPemasukan.jumlahRp | currency }}</p>
                 </div>
               </div>
             </div>
-            <div class="mb-1 overflow-hidden shadow-lg rounded block lg:w-1/4 w-1/2">
+            <div class="mb-1 overflow-hidden rounded block lg:w-1/5 w-1/2 border shadow-lg">
               <div class="flex flex-column">
                 <div class="font-bold text-xl text-left bg-red-500 w-1/3 text-gray-200 py-6 justify-center items-center flex">
                   <svg class="w-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
                 </div>
                 <div class="w-3/4 my-auto">
-                  <h4 class="text-gray-600">Total Pengeluaran ({{ TotPengeluaran.jumlah.length }})</h4>
+                  <h4 class="text-gray-600">Pengeluaran ({{ TotPengeluaran.jumlah.length }})</h4>
                   <p class="font-bold">{{ TotPengeluaran.jumlahRp | currency }}</p>
                 </div>
               </div>
             </div>
-            <div class="mb-1 overflow-hidden shadow-lg rounded block lg:w-1/4 w-1/2">
+            <div class="mb-1 overflow-hidden rounded block lg:w-1/5 w-1/2 border shadow-lg">
               <div class="flex flex-column">
                 <div class="font-bold text-xl text-left bg-blue-500 w-1/3 text-gray-200 py-6 justify-center items-center flex">
                   <!-- <svg class="w-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg> -->
                   <svg class="w-1/2" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M2 14h-2v-5h2v5zm3 0h-2v-9h2v9zm3 0h-2v-7h2v7zm3 0h-2v-3h2v3zm13 3.586l-2.831-2.832c.522-.79.831-1.735.831-2.754 0-2.761-2.238-5-5-5s-5 2.239-5 5 2.238 5 5 5c1.019 0 1.964-.309 2.755-.832l2.831 2.832 1.414-1.414zm-10-5.586c0-1.654 1.346-3 3-3s3 1.346 3 3-1.346 3-3 3-3-1.346-3-3z"/></svg>
                 </div>
                 <div class="w-3/4 my-auto">
-                  <h4 class="text-gray-600">Total Transaksi ({{ allData.length }})</h4>
+                  <h4 class="text-gray-600">Transaksi ({{ allData.length }})</h4>
                   <p class="font-bold">{{ (TotPemasukan.jumlahRp + TotPengeluaran.jumlahRp) | currency }}</p>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-
-        <div class="flex w-full mx-2 my-2 p-2 justify-between flex-wrap border-2 border-red-200 rounded">
-          <div class="flex-auto lg:max-w-sm rounded block mx-2 overflow-hidden" >
-            <div class="border-b border-gray-300">
-              <div class="px-6 py-2 flex">
-                <div class="p-4 mr-4 text-red-500 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-500">
-                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+            <div class="mb-1 overflow-hidden rounded block lg:w-1/5 w-1/2 border shadow-lg">
+              <div class="flex flex-column">
+                <div class="font-bold text-xl text-left bg-yellow-500 w-1/3 text-gray-200 py-6 justify-center items-center flex">
+                  <svg class="w-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                 </div>
-                <div class="font-bold text-lg text-left my-auto">
-                  Pengeluaran Per Bulan
+                <div class="w-3/4 my-auto">
+                  <h4 class="text-gray-600">Sisa </h4>
+                  <p class="font-bold">{{ (TotPemasukan.jumlahRp - TotPengeluaran.jumlahRp) | currency }}</p>
                 </div>
-              </div>
-            </div>
-            <div class="border-b border-gray-300">
-              <div class="text-base text-left" v-if="pengeluaranTop.length > 0">
-                <table class="table-fixed w-full">
-                  <thead>
-                    <tr class="bg-gray-200">
-                      <th class="w-1/4 text-center">Bulan</th>
-                      <th class="w-2/5 text-center">Nominal</th>
-                      <th class="w-1/3 text-center">Jumlah Pengeluaran</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr v-for="(data, index) in pengeluaranTable" :key="index" class="border-b-2 text-gray-600">
-                      <td class="text-center py-2">{{ data.bln }} {{ data.tahun }} </td>
-                      <td class="py-2 px-2">{{ data.nominal | currency }}</td>
-                      <td class="text-center py-2"> {{ data.jumlah }} </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <p class="text-base text-left" v-else>
-                Belum ada data transaksi
-              </p>
-            </div>
-          </div>
-          <div class="flex-auto lg:max-w-sm rounded block mx-2 overflow-hidden" >
-            <div class="border-b border-gray-300">
-              <div class="px-6 py-2 flex">
-                <div class="p-4 mr-4 text-red-500 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-500">
-                  <svg class="w-6 h-6" fill="none" stroke="currentColor"  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M13.408 18c.498-3.947 5.592-7.197 5.592-17h-14c0 9.803 5.105 13.053 5.604 17h2.804zm-3.614-11.472l1.46-.202.643-1.326.643 1.326 1.46.202-1.063 1.021.26 1.451-1.3-.695-1.3.695.26-1.451-1.063-1.021zm-3.803 4.128c.286.638.585 1.231.882 1.783-4.065-1.348-6.501-5.334-6.873-9.439h4.077c.036.482.08.955.139 1.405h-2.689c.427 2.001 1.549 4.729 4.464 6.251zm10.009 10.963v1.381h-8v-1.381c1.941 0 2.369-1.433 2.571-2.619h2.866c.193 1.187.565 2.619 2.563 2.619zm8-18.619c-.372 4.105-2.808 8.091-6.873 9.438.297-.552.596-1.145.882-1.783 2.915-1.521 4.037-4.25 4.464-6.251h-2.688c.059-.45.103-.922.139-1.405h4.076z"/></svg>
-                </div>
-                <div class="font-bold text-lg text-left my-auto">
-                  Pengeluaran
-                </div>
-              </div>
-            </div>
-            <div class="border-b border-gray-300">
-              <div class="w-full pt-12">
-                <div class="overflow-hidden rounded-full w-20 -mt-16 mx-auto bg-white border border-gray-300">
-                  Top 10
-                </div>
-              </div>
-              <p class="text-base text-left" v-if="pengeluaranTop.length > 0">
-                <ul class="px-0">
-                  <li class="list-none py-2 px-2 border-b-2 flex" v-for="(topPeng, index) in pengeluaranTop.slice(0, 10)" :key="index">
-                    <div class="py-3 px-5 font-bold rounded-full text-gray-600 bg-gray-100">
-                      {{ index + 1 }}
-                    </div>
-                    <div class="flex-auto ml-3">
-                      <div>
-                        {{ topPeng.nama }}
-                      </div>
-                      <div class="text-gray-600 text-sm">
-                        {{ topPeng.nominal | currency }}
-                      </div>
-                    </div>
-                    <div class="py-2 px-2" v-if="index >= 0 && index <= 2">
-                      <div class="p-1" :class="[index === 0 ? 'text-yellow-600' : index === 1 ? 'text-gray-600' : 'text-yellow-800' ]">
-                        <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" width="24" height="24" viewBox="0 0 24 24"><path d="M12 10c-3.865 0-7 3.134-7 7s3.135 7 7 7 7-3.134 7-7-3.135-7-7-7zm0 12c-2.762 0-5-2.239-5-5s2.238-5 5-5 5 2.239 5 5-2.238 5-5 5zm1.484-4.315l1.516-1.457-2.083-.287-.917-1.892-.917 1.892-2.083.287 1.516 1.457-.369 2.07 1.853-.992 1.854.992-.37-2.07zm1.62-9.822l-2.48-3.329 3.376-4.534h5l-5.896 7.863zm-2.974.137h1.828l-5.958-8h-1.869l5.999 8zm-7.249-8h-1.881l6 8h1.881l-6-8z"/></svg>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
-              </p>
-              <p v-else class="text-base text-left">
-                Belum ada data transaksi
-              </p>
-            </div>
-          </div>
-          <div class="flex-auto lg:max-w-sm flex-row rounded block mx-2 overflow-hidden" >
-            <div class="border-b border-gray-300">
-              <div class="px-6 py-2 flex">
-                <div class="p-4 mr-4 text-red-500 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-500">
-                  <!-- <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg> -->
-                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
-                </div>
-                <div class="font-bold text-lg text-left my-auto w-2/3">
-                  Statistik
-                </div>
-                <select v-model="typeStatOut" class="block text-base appearance-none rounded-full w-1/3 bg-gray-200 border border-gray-200 text-gray-700 py-2 px-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                  <option disabled value="">Statistik</option>
-                  <option value="hari">Harian</option>
-                  <option value="bulan">Bulanan</option>
-                  <option value="tahun">Tahunan</option>
-                </select>
-              </div>
-            </div>
-            <div class="border-b border-gray-100">
-              <div class="py-2 px-2">
-                <div
-                  class="text-base text-left flex"
-                >
-                  <div
-                    class="p-3 font-bold"
-                    >
-                    <div v-if="statsOut.pengeluaran.jmlBlnSekarang > statsOut.pengeluaran.jmlBlnLalu">
-                      <svg fill="rgb(245, 101, 101)" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"><path d="M24 22h-24l12-20z"/></svg>
-                    </div>
-                    <div v-else-if="statsOut.pengeluaran.jmlBlnSekarang < statsOut.pengeluaran.jmlBlnLalu">
-                      <svg fill="rgb(72, 187, 120)" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"><path d="M12 21l-12-18h24z"/></svg>
-                    </div>
-                    <div v-else>
-                      <svg fill="rgb(252, 211, 77)" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"><path d="M21 12l-18 12v-24z"/></svg>
-                    </div>
-                  </div>
-                  <div
-                    class="flex-auto ml-3"
-                    :class="{ 'text-red-500': statsOut.pengeluaran.jmlBlnSekarang > statsOut.pengeluaran.jmlBlnLalu,
-                              'text-green-500': statsOut.pengeluaran.jmlBlnSekarang < statsOut.pengeluaran.jmlBlnLalu,
-                              'text-yellow-500': statsOut.pengeluaran.jmlBlnSekarang === statsOut.pengeluaran.jmlBlnLalu }"
-                  >
-                    <div class="py-1 font-bold">
-                      {{statsOut.pengeluaran.jmlBlnSekarang | currency}}
-                    </div>
-                    <hr class="py-1">
-                    <div class="text-sm p-1">
-                      {{ statsOut.pengeluaran.selisihRp | currency }} ({{ statsOut.pengeluaran.selisihPersen() }} %)
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="p-2">
-                <table class="table-fixed w-full text-gray-600">
-                  <thead>
-                    <tr class="border-b-2">
-                      <th class="w-1/2 justify-between">{{firstUpper(typeStatOut)}}</th>
-                      <th class="w-1/2 justify-between">Nominal</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr v-for="(data, index) in statsOut.listPengeluaran" :key="index" class="border-b-2">
-                      <td class="text-left py-2">{{ data.bln }}</td>
-                      <td class="text-left py-2"> {{ data.nominal | currency }} </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <div class="py-1">
-                <p class="text-gray-600 text-xs text-left italic">
-                  *Statistik ini membandingan pengeluaran {{typeStatOut}} ini dan {{typeStatOut}} kemarin
-                </p>
               </div>
             </div>
           </div>
         </div>
 
-        <div class="flex w-full mx-2 my-2 p-2 justify-between flex-wrap border-2 border-green-200 mb-24 rounded">
-          <div class="flex-auto lg:max-w-sm rounded block mx-2 overflow-hidden" >
-            <div class="border-b border-gray-300">
-              <div class="px-6 py-2 flex">
-                <div class="p-4 mr-4 text-green-500 bg-green-100 rounded-full dark:text-green-100 dark:bg-green-500">
-                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                </div>
-                <div class="font-bold text-lg text-left my-auto">
-                  Pemasukan Per Bulan
-                </div>
-              </div>
-            </div>
-            <div class="border-b border-gray-300">
-              <div class="text-base text-left" v-if="pemasukanTop.length > 0">
-                <table class="table-fixed w-full">
-                  <thead>
-                    <tr class="bg-gray-200">
-                      <th class="w-1/4 text-center">Bulan</th>
-                      <th class="w-2/5 text-center">Nominal</th>
-                      <th class="w-1/3 text-center">Jumlah Pemasukan</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr v-for="(data, index) in pemasukanTable" :key="index" class="border-b-2 text-gray-600">
-                      <td class="text-center py-2">{{ data.bln }} {{ data.tahun }} </td>
-                      <td class="py-2 px-2">{{ data.nominal | currency }}</td>
-                      <td class="py-2 text-center"> {{ data.jumlah }} </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <p class="text-base text-left" v-else>
-                Belum ada data transaksi
-              </p>
-            </div>
+        <div class="border-2 my-2 w-full border-red-400 rounded">
+          <div class="bg-red-400 h-10">
+            <p class="text-white text-xl font-bold text-left ml-3 h-full leading-loose">
+              Pengeluaran
+            </p>
           </div>
-          <div class="flex-auto lg:max-w-sm rounded block mx-2 overflow-hidden" >
-            <div class="border-b border-gray-300">
-              <div class="px-6 py-2 flex">
-                <div class="p-4 mr-4 text-green-500 bg-green-100 rounded-full dark:text-green-100 dark:bg-green-500">
-                  <svg class="w-6 h-6" fill="none" stroke="currentColor"  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M13.408 18c.498-3.947 5.592-7.197 5.592-17h-14c0 9.803 5.105 13.053 5.604 17h2.804zm-3.614-11.472l1.46-.202.643-1.326.643 1.326 1.46.202-1.063 1.021.26 1.451-1.3-.695-1.3.695.26-1.451-1.063-1.021zm-3.803 4.128c.286.638.585 1.231.882 1.783-4.065-1.348-6.501-5.334-6.873-9.439h4.077c.036.482.08.955.139 1.405h-2.689c.427 2.001 1.549 4.729 4.464 6.251zm10.009 10.963v1.381h-8v-1.381c1.941 0 2.369-1.433 2.571-2.619h2.866c.193 1.187.565 2.619 2.563 2.619zm8-18.619c-.372 4.105-2.808 8.091-6.873 9.438.297-.552.596-1.145.882-1.783 2.915-1.521 4.037-4.25 4.464-6.251h-2.688c.059-.45.103-.922.139-1.405h4.076z"/></svg>
-                </div>
-                <div class="font-bold text-lg text-left my-auto">
-                  Pemasukan
-                </div>
-              </div>
-            </div>
-            <div class="border-b border-gray-300">
-              <div class="w-full pt-12">
-                <div class="overflow-hidden rounded-full w-20 -mt-16 mx-auto bg-white border border-gray-300">
-                  Top 10
-                </div>
-              </div>
-              <div class="text-base text-left" v-if="pemasukanTop.length > 0">
-                <ul class="px-0 transform">
-                  <li
-                    class="list-none py-2 px-2 border-b-2 flex items"
-                    v-for="(topPem, index) in pemasukanTop.slice(0, 10)"
-                    :key="index"
-                  >
-                    <div class="py-3 px-5 font-bold rounded-full text-gray-600 bg-gray-100">
-                      {{ index + 1 }}
-                    </div>
-                    <div class="flex-auto ml-3">
-                      <div>
-                        {{ topPem.nama }}
-                      </div>
-                      <div class="text-gray-600 text-sm">
-                        {{ topPem.nominal | currency }}
-                      </div>
-                    </div>
-                    <div class="py-2 px-2" v-if="index >= 0 && index <= 2">
-                      <div class="p-1" :class="[index === 0 ? 'text-yellow-600' : index === 1 ? 'text-gray-600' : 'text-yellow-800' ]">
-                        <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" width="24" height="24" viewBox="0 0 24 24"><path d="M12 10c-3.865 0-7 3.134-7 7s3.135 7 7 7 7-3.134 7-7-3.135-7-7-7zm0 12c-2.762 0-5-2.239-5-5s2.238-5 5-5 5 2.239 5 5-2.238 5-5 5zm1.484-4.315l1.516-1.457-2.083-.287-.917-1.892-.917 1.892-2.083.287 1.516 1.457-.369 2.07 1.853-.992 1.854.992-.37-2.07zm1.62-9.822l-2.48-3.329 3.376-4.534h5l-5.896 7.863zm-2.974.137h1.828l-5.958-8h-1.869l5.999 8zm-7.249-8h-1.881l6 8h1.881l-6-8z"/></svg>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-              <p class="text-base text-left" v-else>
-                Belum ada data transaksi
-              </p>
-            </div>
-          </div>
-          <div class="flex-auto lg:max-w-sm flex-row rounded block mx-2 overflow-hidden" >
-            <div class="border-b border-gray-300">
-              <div class="px-6 py-2 flex">
-                <div class="p-4 mr-4 text-green-500 bg-green-100 rounded-full dark:text-green-100 dark:bg-green-500">
-                  <!-- <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg> -->
-                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
-                </div>
-                <div class="font-bold text-lg text-left my-auto w-2/3">
-                  Statistik
-                </div>
-                <select v-model="typeStatIn" class="block text-base appearance-none rounded-full w-1/3 bg-gray-200 border border-gray-200 text-gray-700 py-2 px-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                  <option disabled value="">Statistik</option>
-                  <option value="hari">Harian</option>
-                  <option value="bulan">Bulanan</option>
-                  <option value="tahun">Tahunan</option>
-                </select>
-              </div>
-            </div>
-            <div class="border-b border-gray-100">
-              <div class="py-2 px-2">
-                <div
-                  class="text-base text-left flex"
-                >
-                  <div
-                    class="p-3 font-bold"
-                    >
-                    <div v-if="statsIn.pemasukan.jmlBlnSekarang > statsIn.pemasukan.jmlBlnLalu">
-                      <svg fill="rgb(72, 187, 120)" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"><path d="M24 22h-24l12-20z"/></svg>
-                    </div>
-                    <div v-else-if="statsIn.pemasukan.jmlBlnSekarang < statsIn.pemasukan.jmlBlnLalu">
-                      <svg fill="rgb(245, 101, 101)" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"><path d="M12 21l-12-18h24z"/></svg>
-                    </div>
-                    <div v-else>
-                      <svg fill="rgb(252, 211, 77)" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"><path d="M21 12l-18 12v-24z"/></svg>
-                    </div>
+          <div class="flex mx-2 my-2 p-1 justify-between flex-wrap">
+            <div class="flex-auto lg:max-w-sm rounded block mx-2 overflow-hidden" >
+              <div class="border-b border-gray-300">
+                <div class="px-6 py-2 flex">
+                  <div class="p-4 mr-4 text-red-500 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-500">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
                   </div>
-                  <div
-                    class="flex-auto ml-3"
-                    :class="{ 'text-red-500': statsIn.pemasukan.jmlBlnSekarang < statsIn.pemasukan.jmlBlnLalu,
-                              'text-green-500': statsIn.pemasukan.jmlBlnSekarang > statsIn.pemasukan.jmlBlnLalu,
-                              'text-yellow-500': statsIn.pemasukan.jmlBlnSekarang === statsIn.pemasukan.jmlBlnLalu }"
-                  >
-                    <div class="py-1 font-bold">
-                      {{statsIn.pemasukan.jmlBlnSekarang | currency}}
-                    </div>
-                    <hr class="py-1">
-                    <div class="text-sm p-1">
-                      {{ statsIn.pemasukan.selisihRp | currency }} ({{ statsIn.pemasukan.selisihPersen() }} %)
-                    </div>
+                  <div class="font-bold text-lg text-left my-auto">
+                    Per Bulan
                   </div>
                 </div>
               </div>
-              <div class="p-2">
-                <table class="table-fixed w-full text-gray-600">
-                  <thead>
-                    <tr class="border-b-2">
-                      <th class="w-1/2 justify-between">{{firstUpper(typeStatIn)}}</th>
-                      <th class="w-1/2 justify-between">Nominal</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr v-for="(data, index) in statsIn.listPemasukan" :key="index" class="border-b-2">
-                      <td class="text-left py-2">{{ data.bln }}</td>
-                      <td class="text-left py-2"> {{ data.nominal | currency }} </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <div class="py-1">
-                <p class="text-gray-600 text-xs text-left italic">
-                  *Statistik ini membandingan pemasukan {{typeStatIn}} ini dan {{typeStatIn}} kemarin
+              <div class="border-b border-gray-300">
+                <div class="text-base text-left" v-if="pengeluaranTop.length > 0">
+                  <table class="table-fixed w-full">
+                    <thead>
+                      <tr class="bg-gray-200">
+                        <th class="w-1/4 text-center">Bulan</th>
+                        <th class="w-2/5 text-center">Nominal</th>
+                        <th class="w-1/3 text-center">Jumlah Pengeluaran</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="(data, index) in pengeluaranTable" :key="index" class="border-b-2 text-gray-600">
+                        <td class="text-center py-2">{{ data.bln }} {{ data.tahun }} </td>
+                        <td class="py-2 px-2">{{ data.nominal | currency }}</td>
+                        <td class="text-center py-2"> {{ data.jumlah }} </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <p class="text-base text-left" v-else>
+                  Belum ada data transaksi
                 </p>
+              </div>
+            </div>
+            <div class="flex-auto lg:max-w-sm rounded block mx-2 overflow-hidden" >
+              <div class="border-b border-gray-300">
+                <div class="px-6 py-2 flex">
+                  <div class="p-4 mr-4 text-red-500 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-500">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor"  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M13.408 18c.498-3.947 5.592-7.197 5.592-17h-14c0 9.803 5.105 13.053 5.604 17h2.804zm-3.614-11.472l1.46-.202.643-1.326.643 1.326 1.46.202-1.063 1.021.26 1.451-1.3-.695-1.3.695.26-1.451-1.063-1.021zm-3.803 4.128c.286.638.585 1.231.882 1.783-4.065-1.348-6.501-5.334-6.873-9.439h4.077c.036.482.08.955.139 1.405h-2.689c.427 2.001 1.549 4.729 4.464 6.251zm10.009 10.963v1.381h-8v-1.381c1.941 0 2.369-1.433 2.571-2.619h2.866c.193 1.187.565 2.619 2.563 2.619zm8-18.619c-.372 4.105-2.808 8.091-6.873 9.438.297-.552.596-1.145.882-1.783 2.915-1.521 4.037-4.25 4.464-6.251h-2.688c.059-.45.103-.922.139-1.405h4.076z"/></svg>
+                  </div>
+                  <div class="font-bold text-lg text-left my-auto">
+                    Peringkat
+                  </div>
+                </div>
+              </div>
+              <div class="border-b border-gray-300">
+                <div class="w-full pt-12">
+                  <div class="overflow-hidden rounded-full w-20 -mt-16 mx-auto bg-white border border-gray-300">
+                    Top 10
+                  </div>
+                </div>
+                <p class="text-base text-left" v-if="pengeluaranTop.length > 0">
+                  <ul class="px-0">
+                    <li class="list-none py-2 px-2 border-b-2 flex" v-for="(topPeng, index) in pengeluaranTop.slice(0, 10)" :key="index">
+                      <div class="py-3 px-5 font-bold rounded-full text-gray-600 bg-gray-100">
+                        {{ index + 1 }}
+                      </div>
+                      <div class="flex-auto ml-3">
+                        <div>
+                          {{ topPeng.nama }}
+                        </div>
+                        <div class="text-gray-600 text-sm">
+                          {{ topPeng.nominal | currency }}
+                        </div>
+                      </div>
+                      <div class="py-2 px-2" v-if="index >= 0 && index <= 2">
+                        <div class="p-1" :class="[index === 0 ? 'text-yellow-600' : index === 1 ? 'text-gray-600' : 'text-yellow-800' ]">
+                          <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" width="24" height="24" viewBox="0 0 24 24"><path d="M12 10c-3.865 0-7 3.134-7 7s3.135 7 7 7 7-3.134 7-7-3.135-7-7-7zm0 12c-2.762 0-5-2.239-5-5s2.238-5 5-5 5 2.239 5 5-2.238 5-5 5zm1.484-4.315l1.516-1.457-2.083-.287-.917-1.892-.917 1.892-2.083.287 1.516 1.457-.369 2.07 1.853-.992 1.854.992-.37-2.07zm1.62-9.822l-2.48-3.329 3.376-4.534h5l-5.896 7.863zm-2.974.137h1.828l-5.958-8h-1.869l5.999 8zm-7.249-8h-1.881l6 8h1.881l-6-8z"/></svg>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </p>
+                <p v-else class="text-base text-left">
+                  Belum ada data transaksi
+                </p>
+              </div>
+            </div>
+            <div class="flex-auto lg:max-w-sm flex-row rounded block mx-2 overflow-hidden" >
+              <div class="border-b border-gray-300">
+                <div class="px-6 py-2 flex">
+                  <div class="p-4 mr-4 text-red-500 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-500">
+                    <!-- <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg> -->
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                  </div>
+                  <div class="font-bold text-lg text-left my-auto w-2/3">
+                    Statistik
+                  </div>
+                  <select v-model="typeStatOut" class="block text-base appearance-none rounded-full w-1/3 bg-gray-200 border border-gray-200 text-gray-700 py-2 px-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                    <option disabled value="">Statistik</option>
+                    <option value="hari">Harian</option>
+                    <option value="bulan">Bulanan</option>
+                    <option value="tahun">Tahunan</option>
+                  </select>
+                </div>
+              </div>
+              <div class="border-b border-gray-100">
+                <div class="py-2 px-2">
+                  <div
+                    class="text-base text-left flex"
+                  >
+                    <div
+                      class="p-3 font-bold"
+                      >
+                      <div v-if="statsOut.pengeluaran.jmlBlnSekarang > statsOut.pengeluaran.jmlBlnLalu">
+                        <svg fill="rgb(245, 101, 101)" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"><path d="M24 22h-24l12-20z"/></svg>
+                      </div>
+                      <div v-else-if="statsOut.pengeluaran.jmlBlnSekarang < statsOut.pengeluaran.jmlBlnLalu">
+                        <svg fill="rgb(72, 187, 120)" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"><path d="M12 21l-12-18h24z"/></svg>
+                      </div>
+                      <div v-else>
+                        <svg fill="rgb(252, 211, 77)" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"><path d="M21 12l-18 12v-24z"/></svg>
+                      </div>
+                    </div>
+                    <div
+                      class="flex-auto ml-3"
+                      :class="{ 'text-red-500': statsOut.pengeluaran.jmlBlnSekarang > statsOut.pengeluaran.jmlBlnLalu,
+                                'text-green-500': statsOut.pengeluaran.jmlBlnSekarang < statsOut.pengeluaran.jmlBlnLalu,
+                                'text-yellow-500': statsOut.pengeluaran.jmlBlnSekarang === statsOut.pengeluaran.jmlBlnLalu }"
+                    >
+                      <div class="py-1 font-bold">
+                        {{statsOut.pengeluaran.jmlBlnSekarang | currency}}
+                      </div>
+                      <hr class="py-1">
+                      <div class="text-sm p-1">
+                        {{ statsOut.pengeluaran.selisihRp | currency }} ({{ statsOut.pengeluaran.selisihPersen() }} %)
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="p-2">
+                  <table class="table-fixed w-full text-gray-600">
+                    <thead>
+                      <tr class="border-b-2">
+                        <th class="w-1/2 justify-between">{{firstUpper(typeStatOut)}}</th>
+                        <th class="w-1/2 justify-between">Nominal</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="(data, index) in statsOut.listPengeluaran" :key="index" class="border-b-2">
+                        <td class="text-left py-2">{{ data.bln }}</td>
+                        <td class="text-left py-2"> {{ data.nominal | currency }} </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="py-1">
+                  <p class="text-gray-600 text-xs text-left italic">
+                    *Statistik ini membandingan pengeluaran {{typeStatOut}} ini dan {{typeStatOut}} kemarin
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="border-2 my-2 mb-16 w-full border-green-400 rounded">
+          <div class="bg-green-400 h-10">
+            <p class="text-white text-xl font-bold text-left ml-3 h-full leading-loose">
+              Pemasukan
+            </p>
+          </div>
+          <div class="flex mx-2 my-2 p-2 justify-between flex-wrap">
+            <div class="flex-auto lg:max-w-sm rounded block mx-2 overflow-hidden" >
+              <div class="border-b border-gray-300">
+                <div class="px-6 py-2 flex">
+                  <div class="p-4 mr-4 text-green-500 bg-green-100 rounded-full dark:text-green-100 dark:bg-green-500">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                  </div>
+                  <div class="font-bold text-lg text-left my-auto">
+                    Per Bulan
+                  </div>
+                </div>
+              </div>
+              <div class="border-b border-gray-300">
+                <div class="text-base text-left" v-if="pemasukanTop.length > 0">
+                  <table class="table-fixed w-full">
+                    <thead>
+                      <tr class="bg-gray-200">
+                        <th class="w-1/4 text-center">Bulan</th>
+                        <th class="w-2/5 text-center">Nominal</th>
+                        <th class="w-1/3 text-center">Jumlah Pemasukan</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="(data, index) in pemasukanTable" :key="index" class="border-b-2 text-gray-600">
+                        <td class="text-center py-2">{{ data.bln }} {{ data.tahun }} </td>
+                        <td class="py-2 px-2">{{ data.nominal | currency }}</td>
+                        <td class="py-2 text-center"> {{ data.jumlah }} </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <p class="text-base text-left" v-else>
+                  Belum ada data transaksi
+                </p>
+              </div>
+            </div>
+            <div class="flex-auto lg:max-w-sm rounded block mx-2 overflow-hidden" >
+              <div class="border-b border-gray-300">
+                <div class="px-6 py-2 flex">
+                  <div class="p-4 mr-4 text-green-500 bg-green-100 rounded-full dark:text-green-100 dark:bg-green-500">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor"  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M13.408 18c.498-3.947 5.592-7.197 5.592-17h-14c0 9.803 5.105 13.053 5.604 17h2.804zm-3.614-11.472l1.46-.202.643-1.326.643 1.326 1.46.202-1.063 1.021.26 1.451-1.3-.695-1.3.695.26-1.451-1.063-1.021zm-3.803 4.128c.286.638.585 1.231.882 1.783-4.065-1.348-6.501-5.334-6.873-9.439h4.077c.036.482.08.955.139 1.405h-2.689c.427 2.001 1.549 4.729 4.464 6.251zm10.009 10.963v1.381h-8v-1.381c1.941 0 2.369-1.433 2.571-2.619h2.866c.193 1.187.565 2.619 2.563 2.619zm8-18.619c-.372 4.105-2.808 8.091-6.873 9.438.297-.552.596-1.145.882-1.783 2.915-1.521 4.037-4.25 4.464-6.251h-2.688c.059-.45.103-.922.139-1.405h4.076z"/></svg>
+                  </div>
+                  <div class="font-bold text-lg text-left my-auto">
+                    Peringkat
+                  </div>
+                </div>
+              </div>
+              <div class="border-b border-gray-300">
+                <div class="w-full pt-12">
+                  <div class="overflow-hidden rounded-full w-20 -mt-16 mx-auto bg-white border border-gray-300">
+                    Top 10
+                  </div>
+                </div>
+                <div class="text-base text-left" v-if="pemasukanTop.length > 0">
+                  <ul class="px-0 transform">
+                    <li
+                      class="list-none py-2 px-2 border-b-2 flex items"
+                      v-for="(topPem, index) in pemasukanTop.slice(0, 10)"
+                      :key="index"
+                    >
+                      <div class="py-3 px-5 font-bold rounded-full text-gray-600 bg-gray-100">
+                        {{ index + 1 }}
+                      </div>
+                      <div class="flex-auto ml-3">
+                        <div>
+                          {{ topPem.nama }}
+                        </div>
+                        <div class="text-gray-600 text-sm">
+                          {{ topPem.nominal | currency }}
+                        </div>
+                      </div>
+                      <div class="py-2 px-2" v-if="index >= 0 && index <= 2">
+                        <div class="p-1" :class="[index === 0 ? 'text-yellow-600' : index === 1 ? 'text-gray-600' : 'text-yellow-800' ]">
+                          <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" width="24" height="24" viewBox="0 0 24 24"><path d="M12 10c-3.865 0-7 3.134-7 7s3.135 7 7 7 7-3.134 7-7-3.135-7-7-7zm0 12c-2.762 0-5-2.239-5-5s2.238-5 5-5 5 2.239 5 5-2.238 5-5 5zm1.484-4.315l1.516-1.457-2.083-.287-.917-1.892-.917 1.892-2.083.287 1.516 1.457-.369 2.07 1.853-.992 1.854.992-.37-2.07zm1.62-9.822l-2.48-3.329 3.376-4.534h5l-5.896 7.863zm-2.974.137h1.828l-5.958-8h-1.869l5.999 8zm-7.249-8h-1.881l6 8h1.881l-6-8z"/></svg>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+                <p class="text-base text-left" v-else>
+                  Belum ada data transaksi
+                </p>
+              </div>
+            </div>
+            <div class="flex-auto lg:max-w-sm flex-row rounded block mx-2 overflow-hidden" >
+              <div class="border-b border-gray-300">
+                <div class="px-6 py-2 flex">
+                  <div class="p-4 mr-4 text-green-500 bg-green-100 rounded-full dark:text-green-100 dark:bg-green-500">
+                    <!-- <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg> -->
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                  </div>
+                  <div class="font-bold text-lg text-left my-auto w-2/3">
+                    Statistik
+                  </div>
+                  <select v-model="typeStatIn" class="block text-base appearance-none rounded-full w-1/3 bg-gray-200 border border-gray-200 text-gray-700 py-2 px-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                    <option disabled value="">Statistik</option>
+                    <option value="hari">Harian</option>
+                    <option value="bulan">Bulanan</option>
+                    <option value="tahun">Tahunan</option>
+                  </select>
+                </div>
+              </div>
+              <div class="border-b border-gray-100">
+                <div class="py-2 px-2">
+                  <div
+                    class="text-base text-left flex"
+                  >
+                    <div
+                      class="p-3 font-bold"
+                      >
+                      <div v-if="statsIn.pemasukan.jmlBlnSekarang > statsIn.pemasukan.jmlBlnLalu">
+                        <svg fill="rgb(72, 187, 120)" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"><path d="M24 22h-24l12-20z"/></svg>
+                      </div>
+                      <div v-else-if="statsIn.pemasukan.jmlBlnSekarang < statsIn.pemasukan.jmlBlnLalu">
+                        <svg fill="rgb(245, 101, 101)" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"><path d="M12 21l-12-18h24z"/></svg>
+                      </div>
+                      <div v-else>
+                        <svg fill="rgb(252, 211, 77)" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"><path d="M21 12l-18 12v-24z"/></svg>
+                      </div>
+                    </div>
+                    <div
+                      class="flex-auto ml-3"
+                      :class="{ 'text-red-500': statsIn.pemasukan.jmlBlnSekarang < statsIn.pemasukan.jmlBlnLalu,
+                                'text-green-500': statsIn.pemasukan.jmlBlnSekarang > statsIn.pemasukan.jmlBlnLalu,
+                                'text-yellow-500': statsIn.pemasukan.jmlBlnSekarang === statsIn.pemasukan.jmlBlnLalu }"
+                    >
+                      <div class="py-1 font-bold">
+                        {{statsIn.pemasukan.jmlBlnSekarang | currency}}
+                      </div>
+                      <hr class="py-1">
+                      <div class="text-sm p-1">
+                        {{ statsIn.pemasukan.selisihRp | currency }} ({{ statsIn.pemasukan.selisihPersen() }} %)
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="p-2">
+                  <table class="table-fixed w-full text-gray-600">
+                    <thead>
+                      <tr class="border-b-2">
+                        <th class="w-1/2 justify-between">{{firstUpper(typeStatIn)}}</th>
+                        <th class="w-1/2 justify-between">Nominal</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="(data, index) in statsIn.listPemasukan" :key="index" class="border-b-2">
+                        <td class="text-left py-2">{{ data.bln }}</td>
+                        <td class="text-left py-2"> {{ data.nominal | currency }} </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="py-1">
+                  <p class="text-gray-600 text-xs text-left italic">
+                    *Statistik ini membandingan pemasukan {{typeStatIn}} ini dan {{typeStatIn}} kemarin
+                  </p>
+                </div>
               </div>
             </div>
           </div>
