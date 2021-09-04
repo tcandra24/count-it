@@ -1,16 +1,5 @@
 <template>
-  <div class="home">
-    <!-- <section class="relative py-8 px-4">
-      <div class="z-20 relative text-gray-800 container mx-auto text-left">
-        <h1 class="mb-4 opacity-75">Count IT</h1>
-        <p class="leading-normal opacity-75">Menghitung pengeluaran secara otomatis</p>
-        <p class="leading-normal opacity-75">Menggunakan Teknologi Vue, Tailwind</p>
-        <a href="/count" class="inline-block bg-blue-500 text-white no-underline hover:opacity-100 mt-4 p-4 rounded opacity-75 cursor-pointer">Mulai!</a>
-      </div>
-      <div class="absolute inset-0 h-full z-10">
-        <img src="http://3.bp.blogspot.com/-OlHVbclWofM/WUHHAo9cZeI/AAAAAAAAGCI/xx9R8nVEnlIOe16iHvUXfsRseYTdgYp5ACHMYBhgL/s1600/tmc18-anime-background-wallpaper-anime-images-in-high-quality.jpg" alt="" class="h-full w-full object-cover">
-      </div>
-    </section> -->
+  <div class="home min-h-screen">
     <div class='container mx-auto mt-10'>
       <div class="flex flex-wrap">
         <div class="flex-auto w-full rounded block border border-gray-200 mx-2 my-2 overflow-hidden shadow-lg" >
@@ -87,8 +76,8 @@
           </div>
         </div>
 
-        <div class="border-2 my-2 w-full border-red-400 rounded">
-          <div class="bg-red-400 h-10">
+        <div class="my-2 w-full shadow-md rounded" v-if="pengeluaranTop.length > 0">
+          <div class="h-12 border-b-2 border-gray-200 bg-red-500 rounded-t">
             <p class="text-white text-xl font-bold text-left ml-3 h-full leading-loose">
               Pengeluaran
             </p>
@@ -106,7 +95,7 @@
                 </div>
               </div>
               <div class="border-b border-gray-300">
-                <div class="text-base text-left" v-if="pengeluaranTop.length > 0">
+                <div class="text-base text-left">
                   <table class="table-fixed w-full">
                     <thead>
                       <tr class="bg-gray-200">
@@ -124,9 +113,6 @@
                     </tbody>
                   </table>
                 </div>
-                <p class="text-base text-left" v-else>
-                  Belum ada data transaksi
-                </p>
               </div>
             </div>
             <div class="flex-auto lg:max-w-sm rounded block mx-2 overflow-hidden" >
@@ -141,14 +127,14 @@
                 </div>
               </div>
               <div class="border-b border-gray-300">
-                <div class="w-full pt-12">
-                  <div class="overflow-hidden rounded-full w-20 -mt-16 mx-auto bg-white border border-gray-300">
-                    Top 10
+                <div class="w-full pt-3">
+                  <div class="overflow-hidden rounded-full w-20 -mt-6 mx-auto bg-white border border-gray-300">
+                    Top 5
                   </div>
                 </div>
-                <p class="text-base text-left" v-if="pengeluaranTop.length > 0">
+                <p class="text-base text-left">
                   <ul class="px-0">
-                    <li class="list-none py-2 px-2 border-b-2 flex" v-for="(topPeng, index) in pengeluaranTop.slice(0, 10)" :key="index">
+                    <li class="list-none py-2 px-2 border-b-2 flex" v-for="(topPeng, index) in pengeluaranTop.slice(0, 5)" :key="index">
                       <div class="py-3 px-5 font-bold rounded-full text-gray-600 bg-gray-100">
                         {{ index + 1 }}
                       </div>
@@ -167,9 +153,6 @@
                       </div>
                     </li>
                   </ul>
-                </p>
-                <p v-else class="text-base text-left">
-                  Belum ada data transaksi
                 </p>
               </div>
             </div>
@@ -251,8 +234,8 @@
           </div>
         </div>
 
-        <div class="border-2 my-2 mb-16 w-full border-green-400 rounded">
-          <div class="bg-green-400 h-10">
+        <div class="my-2 mb-16 w-full shadow-md rounded" v-if="pemasukanTop.length > 0">
+          <div class="h-12 border-b-2 border-gray-200 bg-green-500 rounded-t">
             <p class="text-white text-xl font-bold text-left ml-3 h-full leading-loose">
               Pemasukan
             </p>
@@ -270,7 +253,7 @@
                 </div>
               </div>
               <div class="border-b border-gray-300">
-                <div class="text-base text-left" v-if="pemasukanTop.length > 0">
+                <div class="text-base text-left">
                   <table class="table-fixed w-full">
                     <thead>
                       <tr class="bg-gray-200">
@@ -288,9 +271,6 @@
                     </tbody>
                   </table>
                 </div>
-                <p class="text-base text-left" v-else>
-                  Belum ada data transaksi
-                </p>
               </div>
             </div>
             <div class="flex-auto lg:max-w-sm rounded block mx-2 overflow-hidden" >
@@ -305,16 +285,16 @@
                 </div>
               </div>
               <div class="border-b border-gray-300">
-                <div class="w-full pt-12">
-                  <div class="overflow-hidden rounded-full w-20 -mt-16 mx-auto bg-white border border-gray-300">
-                    Top 10
+                <div class="w-full pt-3">
+                  <div class="overflow-hidden rounded-full w-20 -mt-6 mx-auto bg-white border border-gray-300">
+                    Top 5
                   </div>
                 </div>
-                <div class="text-base text-left" v-if="pemasukanTop.length > 0">
+                <div class="text-base text-left">
                   <ul class="px-0 transform">
                     <li
                       class="list-none py-2 px-2 border-b-2 flex items"
-                      v-for="(topPem, index) in pemasukanTop.slice(0, 10)"
+                      v-for="(topPem, index) in pemasukanTop.slice(0, 5)"
                       :key="index"
                     >
                       <div class="py-3 px-5 font-bold rounded-full text-gray-600 bg-gray-100">
@@ -336,9 +316,6 @@
                     </li>
                   </ul>
                 </div>
-                <p class="text-base text-left" v-else>
-                  Belum ada data transaksi
-                </p>
               </div>
             </div>
             <div class="flex-auto lg:max-w-sm flex-row rounded block mx-2 overflow-hidden" >
@@ -430,12 +407,15 @@ export default {
   data: () => ({
     chartData: {},
     options: {},
-    tahun: 2020,
+    tahun: null,
     typeStatIn: 'bulan',
     typeStatOut: 'bulan',
     pemasukanTable: [],
     pengeluaranTable: []
   }),
+  metaInfo: {
+    title: 'Dashboard'
+  },
   components: {
     chart
   },
@@ -615,13 +595,6 @@ export default {
 
       const blnNow = this.$moment(Date.now()).format(formatDate)
       const blnPrev = this.$moment(Date.now()).subtract(1, type).format(formatDate)
-      // const statsPengeluaran = [{
-      //   nominal: 0,
-      //   bln: blnPrev
-      // }, {
-      //   nominal: 0,
-      //   bln: blnNow
-      // }]
       const statsPemasukan = [{
         nominal: 0,
         bln: blnPrev
@@ -630,21 +603,9 @@ export default {
         bln: blnNow
       }]
 
-      // const getDataPengeluaran = this.allData.filter((data) => {
-      //   return data.pengeluaran === true && (this.$moment(data.tanggal).format(formatDate) === blnNow || this.$moment(data.tanggal).format(formatDate) === blnPrev)
-      // })
-
       const getDataPemasukan = this.allData.filter((data) => {
         return data.pengeluaran === false && (this.$moment(data.tanggal).format(formatDate) === blnNow || this.$moment(data.tanggal).format(formatDate) === blnPrev)
       })
-
-      // for (let i = 0; i < getDataPengeluaran.length; i++) {
-      //   if (statsPengeluaran[0].bln === this.$moment(getDataPengeluaran[i].tanggal).format(formatDate)) {
-      //     statsPengeluaran[0].nominal += getDataPengeluaran[i].nominal
-      //   } else {
-      //     statsPengeluaran[1].nominal += getDataPengeluaran[i].nominal
-      //   }
-      // }
 
       for (let i = 0; i < getDataPemasukan.length; i++) {
         if (statsPemasukan[0].bln === this.$moment(getDataPemasukan[i].tanggal).format(formatDate)) {
@@ -653,19 +614,6 @@ export default {
           statsPemasukan[1].nominal += getDataPemasukan[i].nominal
         }
       }
-      // Object container for pengeluaran and pemasukan
-      // const pengeluaran = {
-      //   jmlBlnLalu: (statsPengeluaran[0].tgl) === blnPrev ? statsPengeluaran[0].nominal : 0,
-      //   jmlBlnSekarang: statsPengeluaran[1].nominal,
-      //   selisihRp: statsPengeluaran[0].nominal - statsPengeluaran[1].nominal,
-      //   selisihPersen: () => {
-      //     if (statsPengeluaran[0].nominal > 0 && statsPengeluaran[1].nominal > 0) {
-      //       return (((statsPengeluaran[0].nominal - statsPengeluaran[1].nominal) / statsPengeluaran[1].nominal) * 100).toFixed(4)
-      //     } else {
-      //       return 0
-      //     }
-      //   }
-      // }
 
       const pemasukan = {
         jmlBlnLalu: statsPemasukan[0].nominal,
@@ -680,13 +628,8 @@ export default {
         }
       }
 
-      // Method toFixed untuk menampilkan 2 angka dibelakang koma
-      // console.log(selisihPersen.toFixed(4))
-
       return {
-        // pengeluaran: pengeluaran,
         pemasukan: pemasukan,
-        // listPengeluaran: statsPengeluaran,
         listPemasukan: statsPemasukan
       }
     },
@@ -713,21 +656,10 @@ export default {
         nominal: 0,
         bln: blnNow
       }]
-      // const statsPemasukan = [{
-      //   nominal: 0,
-      //   bln: blnPrev
-      // }, {
-      //   nominal: 0,
-      //   bln: blnNow
-      // }]
 
       const getDataPengeluaran = this.allData.filter((data) => {
         return data.pengeluaran === true && (this.$moment(data.tanggal).format(formatDate) === blnNow || this.$moment(data.tanggal).format(formatDate) === blnPrev)
       })
-
-      // const getDataPemasukan = this.allData.filter((data) => {
-      //   return data.pengeluaran === false && (this.$moment(data.tanggal).format(formatDate) === blnNow || this.$moment(data.tanggal).format(formatDate) === blnPrev)
-      // })
 
       for (let i = 0; i < getDataPengeluaran.length; i++) {
         if (statsPengeluaran[0].bln === this.$moment(getDataPengeluaran[i].tanggal).format(formatDate)) {
@@ -737,14 +669,6 @@ export default {
         }
       }
 
-      // for (let i = 0; i < getDataPemasukan.length; i++) {
-      //   if (statsPemasukan[0].bln === this.$moment(getDataPemasukan[i].tanggal).format(formatDate)) {
-      //     statsPemasukan[0].nominal += getDataPemasukan[i].nominal
-      //   } else {
-      //     statsPemasukan[1].nominal += getDataPemasukan[i].nominal
-      //   }
-      // }
-      // Object container for pengeluaran and pemasukan
       const pengeluaran = {
         jmlBlnLalu: (statsPengeluaran[0].tgl) === blnPrev ? statsPengeluaran[0].nominal : 0,
         jmlBlnSekarang: statsPengeluaran[1].nominal,
@@ -758,27 +682,9 @@ export default {
         }
       }
 
-      // const pemasukan = {
-      //   jmlBlnLalu: statsPemasukan[0].nominal,
-      //   jmlBlnSekarang: statsPemasukan[1].nominal,
-      //   selisihRp: statsPemasukan[0].nominal - statsPemasukan[1].nominal,
-      //   selisihPersen: () => {
-      //     if (statsPemasukan[0].nominal > 0 && statsPemasukan[1].nominal > 0) {
-      //       return (((statsPemasukan[0].nominal - statsPemasukan[1].nominal) / statsPemasukan[1].nominal) * 100).toFixed(4)
-      //     } else {
-      //       return 0
-      //     }
-      //   }
-      // }
-
-      // Method toFixed untuk menampilkan 2 angka dibelakang koma
-      // console.log(selisihPersen.toFixed(4))
-
       return {
         pengeluaran: pengeluaran,
-        // pemasukan: pemasukan,
         listPengeluaran: statsPengeluaran
-        // listPemasukan: statsPemasukan
       }
     },
     TotPengeluaran () {
@@ -795,6 +701,7 @@ export default {
     }
   },
   created () {
+    this.tahun = +this.$moment().format('YYYY')
     this.initChart()
     this.initTable()
   }

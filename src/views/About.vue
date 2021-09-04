@@ -1,5 +1,5 @@
 <template>
-  <div class="about">
+  <div class="about min-h-screen">
     <div class="container px-3 mx-auto flex flex-row flex-wrap">
       <div class="px-4 mt-3 text-left w-full">
         <p class="font-bold text-xl">
@@ -29,7 +29,7 @@
           tiap bulannya maupun tiap tahunnya.
         </p>
         <p class="text-gray-700">
-          Aplikasi ini dibuat dengan teknologi VueJS sebagai Framework Javascript dan tailwindcss sebagai Framework CSS.
+          Aplikasi ini dibuat dengan teknologi VueJS 2 sebagai Framework Javascript dan tailwindcss sebagai Framework CSS.
         </p>
       </div>
     </div>
@@ -37,8 +37,8 @@
 </template>
 <script>
 export default {
-  created () {
-    console.log(this.$route.path)
+  metaInfo: {
+    title: 'About'
   }
 }
 </script>

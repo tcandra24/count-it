@@ -1,20 +1,12 @@
 <template>
-  <div>
-    <!-- <div class="bg-cover bg-center h-auto text-white py-24 px-10 object-fill" style="background-image: url(https://images.unsplash.com/photo-1558981806-ec527fa84c39?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80)">
-       <div class="md:w-1/2">
-        <p class="font-bold text-sm uppercase">Services</p>
-        <p class="text-3xl font-bold">Multimedia products</p>
-        <p class="text-2xl mb-10 leading-none">Atractive designs for your brand</p>
-        <a href="#" class="bg-purple-800 py-4 px-8 text-white font-bold uppercase text-xs rounded hover:bg-gray-200 hover:text-gray-800">Contact us</a>
-      </div>
-    </div> -->
+  <div class="min-h-screen">
     <div class='container mx-auto w-full'>
       <div class="flex py-5 w-full">
         <button
           @click="show"
-          class='text-white font-bold py-5 px-5 rounded-full float-left h-full bg-blue-500 hover:bg-blue-700 ml-2'
+          class='text-white font-bold py-2 px-3 rounded float-left rounded-full h-full bg-blue-500 hover:bg-blue-700 ml-2'
         >
-          <svg fill="rgb(249, 250, 251)" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path d="M24 10h-10v-10h-4v10h-10v4h10v10h4v-10h10z"/></svg>
+          Tambah
         </button>
       </div>
       <div class="flex flex-wrap">
@@ -133,6 +125,9 @@ export default {
     index: null,
     warnaTemplate: warnaChoice
   }),
+  metaInfo: {
+    title: 'Categories'
+  },
   validations: {
     nama: {
       required

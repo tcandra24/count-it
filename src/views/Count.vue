@@ -1,5 +1,5 @@
 <template>
-  <div class='home'>
+  <div class='home min-h-screen'>
     <div class="w-full py-4 px-2" :class="[sisa < 0 ? 'bg-red-600' : 'bg-blue-600' ]">
       <div class="flex flex-wrap">
         <h1 class="py-2 w-full md:w-1/3 block text-gray-200 font-bold md:w-1/3">Pemasukan : {{ jml_pemasukan | currency }}</h1>
@@ -73,6 +73,23 @@
                   v-model="filter.maxNominal"
                 />
               </div>
+              <hr class="my-4">
+              <div class="relative w-full">
+                <button
+                  @click="countAllData()"
+                  class='appearance-none block w-full leading-tight text-white font-bold py-2 px-3 rounded rounded-full h-full bg-blue-500 hover:bg-blue-700'
+                >
+                  Cari
+                </button>
+              </div>
+              <div class="relative w-full mt-3">
+                <button
+                  @click="clearFilters()"
+                  class='appearance-none block w-full leading-tight text-white font-bold py-2 px-3 rounded rounded-full h-full bg-yellow-400 hover:bg-yellow-600'
+                >
+                  Clear
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -86,10 +103,7 @@
               :disabled="cari !== ''"
               :class="[ cari !== '' ? 'bg-gray-500' : 'bg-blue-500 hover:bg-blue-700' ]"
             >
-              <div class="flex">
-                <p class="mr-2">Tambah</p>
-              <svg fill="rgb(249, 250, 251)" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path d="M24 10h-10v-10h-4v10h-10v4h10v10h4v-10h10z"/></svg>
-              </div>
+              Tambah
             </button>
           </div>
           <div class="w-full md:w-1/6 sm:w-1/2 flex">
@@ -109,19 +123,19 @@
               <div class="relative">
                 <img class="w-full h-24 object-cover" :src="`https://picsum.photos/1920/1080?grayscale&random=${index + 1}`" alt="Just Picture">
                 <div class="w-full h-24 absolute top-0 bg-opacity-25 py-5 px-4 text-white text-opacity-75" :class="dataKategori(item.kategori).warna">
-                  <p class="font-bold text-xs uppercase text-left tracking-widest">{{dataKategori(item.kategori).kategori}}</p>
+                  <p class="font-bold text-base uppercase text-left tracking-widest">{{dataKategori(item.kategori).kategori}}</p>
                 </div>
               </div>
               <div class="px-6 py-4">
                 <div class="font-bold text-xl mb-1 text-left">
-                  {{ item.nama }}
+                  {{ firstUpper(item.nama) }}
                 </div>
                 <p class="text-gray-600 text-sm text-left">
-                  {{ item.tanggal | moment("DD-MM-YYYY") }}
+                  {{ item.tanggal | moment("DD MMMM YYYY") }}
                 </p>
                 <hr class="my-2">
                 <p class="text-gray-600 text-base text-left">
-                  {{ item.keterangan }}
+                  {{ firstUpper(item.keterangan) }}
                 </p>
                 <p class="text-base text-left font-bold" :class="[ item.pengeluaran === true ? 'text-red-500' : 'text-green-500' ]">
                   {{ item.nominal | currency }}
@@ -143,45 +157,6 @@
           </div>
           <div v-else>
             <h3 class="text-sm">Data Tidak Ditemukan.</h3>
-          </div>
-        </div>
-        <div class="h-40">
-          <div
-            class="flex flex-wrap py-5"
-            v-show="countData.count.length > 0"
-          >
-            <button
-              :disabled="pageNumber == 0"
-              @click="prevPage"
-              class="mx-2 py-2 px-2 block text-xl"
-              :class="[ pageNumber == 0 ? 'text-gray-300 cursor-not-allowed' : 'text-gray-700 hover:bg-gray-300' ]"
-            >Prev</button>
-            <ul class="flex">
-              <li
-                class="mx-2 py-2 px-4 block text-xl cursor-pointer"
-                v-for="(page) in pagingNumber.pageNum"
-                :key="page"
-                :class="[(pageNumber + 1) == page ? 'bg-gray-300' : 'hover:bg-gray-300' ]"
-                :disabled="pageNumber == page"
-                @click="pageNumber = (page - 1)"
-              >
-                <p v-if="page == pagingNumber.start + 1 && pagingNumber.start > 0">
-                  ...
-                </p>
-                <p v-else-if="page == pagingNumber.end && pagingNumber.end < Math.ceil(countData.filtered.length / size)">
-                  ...
-                </p>
-                <p v-else>
-                  {{ page }}
-                </p>
-              </li>
-            </ul>
-            <button
-              :disabled="pageNumber + 1 >= Math.ceil(countData.filtered.length / size)"
-              @click="nextPage"
-              class="mx-2 py-2 px-2 block text-xl"
-              :class="[ pageNumber + 1 >= Math.ceil(countData.filtered.length / size) ? 'text-gray-300 cursor-not-allowed' : 'text-gray-700 hover:bg-gray-300' ]"
-            >Next</button>
           </div>
         </div>
       </div>
@@ -337,6 +312,7 @@ export default {
     pengeluaran: false,
     tanggal: '',
     nominal: 0,
+    countData: {},
     keterangan: '',
     idKategori: null,
     updateId: '',
@@ -346,7 +322,6 @@ export default {
     index: null,
     cari: '',
     size: 10,
-    pageNumber: 0,
     showModal: false,
     warnaTemplate: warnaChoice,
     filter: {
@@ -357,6 +332,9 @@ export default {
       maxNominal: null
     }
   }),
+  metaInfo: {
+    title: 'Count'
+  },
   validations: {
     nama: {
       required
@@ -381,6 +359,56 @@ export default {
       delete: 'transaction/delete',
       BudgetEdit: 'transaction/changeBudget'
     }),
+    clearFilters () {
+      this.cari = ''
+      this.filter = {
+        tglAwal: Date.now(),
+        tglAkhir: Date.now(),
+        tglFilter: false,
+        minNominal: null,
+        maxNominal: null
+      }
+
+      this.countAllData()
+    },
+    countAllData () {
+      let filteredData = this.allData
+      if (this.cari !== '') {
+        filteredData = this.allData.filter((data) => {
+          return (data.nama.toLowerCase().includes(this.cari.toLowerCase()))
+        })
+      }
+
+      if (this.filter.tglFilter === true) {
+        filteredData = filteredData.filter((data) => {
+          return this.$moment(data.tanggal).isBetween(this.filter.tglAwal, this.filter.tglAkhir, 'day', '[]')
+        })
+      }
+
+      if (this.filter.minNominal !== null && this.filter.minNominal > 0) {
+        filteredData = filteredData.filter((data) => {
+          return data.nominal >= this.filter.minNominal
+        })
+      }
+
+      if (this.filter.maxNominal !== null && this.filter.maxNominal > 0) {
+        filteredData = filteredData.filter((data) => {
+          return data.nominal <= this.filter.maxNominal
+        })
+      }
+
+      if (this.sort !== '') {
+        this.countData = {
+          count: _.orderBy(filteredData, this.sort),
+          filtered: filteredData
+        }
+      } else {
+        this.countData = {
+          count: _.orderBy(filteredData, 'nama'),
+          filtered: filteredData
+        }
+      }
+    },
     show () {
       this.showModal = true
       this.$modal.show('form-input', { id: '' })
@@ -429,6 +457,8 @@ export default {
         '',
         'success'
       )
+      this.clearFilters()
+      this.countAllData()
     },
     dataKategori (idKat) {
       const kat = this.categories.find((value, index) => {
@@ -503,6 +533,15 @@ export default {
           this.delete({
             id: index
           })
+
+          this.$swal(
+            'Data Berhasil Dihapus!',
+            '',
+            'success'
+          )
+
+          this.clearFilters()
+          this.countAllData()
         }
       })
     },
@@ -513,12 +552,6 @@ export default {
         currency: 'IDR',
         minimumFractionDigits: 0
       }).format(num)
-    },
-    nextPage () {
-      this.pageNumber++
-    },
-    prevPage () {
-      this.pageNumber--
     }
   },
   computed: {
@@ -528,66 +561,12 @@ export default {
       jml_pengeluaran: 'transaction/countPengeluaran',
       jml_pemasukan: 'transaction/countPemasukan'
     }),
-    countData () {
-      let filteredData = this.allData
-      if (this.cari !== '') {
-        filteredData = this.allData.filter((data) => {
-          return (data.nama.toLowerCase().includes(this.cari.toLowerCase()))
-        })
-      }
-
-      if (this.filter.tglFilter === true) {
-        filteredData = filteredData.filter((data) => {
-          return this.$moment(data.tanggal).isBetween(this.filter.tglAwal, this.filter.tglAkhir)
-        })
-      }
-
-      if (this.filter.minNominal !== null && this.filter.minNominal > 0) {
-        filteredData = filteredData.filter((data) => {
-          return data.nominal > this.filter.minNominal
-        })
-      }
-
-      if (this.filter.maxNominal !== null && this.filter.maxNominal > 0) {
-        filteredData = filteredData.filter((data) => {
-          return data.nominal < this.filter.maxNominal
-        })
-      }
-
-      const start = this.pageNumber * this.size
-      const end = start + this.size
-
-      if (this.sort !== '') {
-        return {
-          count: _.orderBy(filteredData, this.sort).slice(start, end),
-          filtered: filteredData
-        }
-      } else {
-        return {
-          count: _.orderBy(filteredData, 'nama').slice(start, end),
-          filtered: filteredData
-        }
-      }
-    },
     sisa () {
       return this.jml_pemasukan - this.jml_pengeluaran
-    },
-    pagingNumber () {
-      const arrayPageNum = []
-
-      for (let i = 0; i < Math.ceil(this.countData.filtered.length / this.size); i++) {
-        arrayPageNum[i] = i + 1
-      }
-
-      const start = (this.pageNumber - 4) <= 0 ? 0 : this.pageNumber - 4
-      const end = (this.pageNumber + 5) >= arrayPageNum.length ? arrayPageNum.length : this.pageNumber + 5
-
-      return {
-        pageNum: arrayPageNum.slice(start, end),
-        start: start,
-        end: end
-      }
     }
+  },
+  created () {
+    this.countAllData()
   }
 }
 </script>

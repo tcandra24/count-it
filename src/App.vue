@@ -14,6 +14,9 @@ export default {
   components: {
     Nav,
     Footer
+  },
+  metaInfo: {
+    titleTemplate: '%s | Count IT'
   }
 }
 </script>
