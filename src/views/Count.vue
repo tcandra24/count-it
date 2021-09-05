@@ -41,7 +41,6 @@
               <div class="relative w-full flex flex-row flex-wrap">
                 <datepicker
                   class='appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded-md py-3 px-4 mb-1 leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
-                  id='grid-tanggal'
                   placeholder="Tanggal Awal"
                   v-model="filter.tglAwal"
                 >
@@ -51,7 +50,6 @@
                 </p>
                 <datepicker
                   class='appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded-md py-3 px-4 mb-1 leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
-                  id='grid-tanggal'
                   placeholder="Tanggal Akhir"
                   v-model="filter.tglAkhir"
                 >
@@ -155,8 +153,11 @@
               </div>
             </div>
           </div>
-          <div v-else>
-            <h3 class="text-sm">Data Tidak Ditemukan.</h3>
+          <div class="w-full" v-else>
+            <div class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 mt-5 rounded" role="alert">
+              <strong class="font-bold">No Data!</strong>
+              <span class="block sm:inline">Data Masih Kosong.</span>
+            </div>
           </div>
         </div>
       </div>

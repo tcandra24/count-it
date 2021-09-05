@@ -27,8 +27,11 @@
             </div>
           </div>
         </div>
-        <div v-else>
-          <h3 class="text-sm">Data Tidak Ditemukan</h3>
+        <div class="w-full" v-else>
+          <div class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 mt-5 rounded relative" role="alert">
+            <strong class="font-bold">No Data!</strong>
+            <span class="block sm:inline">Data Tidak Ditemukan.</span>
+          </div>
         </div>
       </div>
     </div>
